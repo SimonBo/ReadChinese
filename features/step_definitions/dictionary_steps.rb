@@ -26,3 +26,32 @@ Then(/^an "(.*?)" and "(.*?)" is displayed on the site$/) do |arg1, arg2|
   expect(page).to have_content arg2
 end
 
+Given(/^a registered user$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+
+Given(/^a user logs in$/) do
+  visit root_path
+  click 'Log in'
+  page.has_content?("Email")
+  fill_in 'Email', :with => @user.email
+  fill_in 'Password', :with => @user.password
+  click_button 'Log in'
+end
+
+Given(/^the user finds a word in dictionary$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Given(/^the user favorites it$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^that word is not in user's favorites$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^that word is added to the user's favorite words$/) do
+  pending # express the regexp above with the code you wish you had
+end
