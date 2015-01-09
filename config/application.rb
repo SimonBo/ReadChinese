@@ -19,6 +19,9 @@ module ChDict
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.app_generators.scaffold_controller = :scaffold_controller
+
+
     config.generators do |g|
       g.test_framework :rspec,
         fixtures: true,

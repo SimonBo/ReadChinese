@@ -1,25 +1,17 @@
-%h1 Listing words
+%h1 Chinese Dictionary
 
-%table
-  %tr
-    %th Traditional char
-    %th Simplified char
-    %th Meaning
-    %th Pronunciation
-    %th
-    %th
-    %th
+= form_tag words_path, method: :get do
+  %p
+    = text_field_tag :query, params[:query], id: 'word_to_lookup'
+    = submit_tag "Search", name: nil, id: 'lookup_word'
 
+- if @words.any?
+  %p Here's what we found:
   - @words.each do |word|
-    %tr
-      %td= word.traditional_char
-      %td= word.simplified_char
-      %td= word.meaning
-      %td= word.pronunciation
-      %td= link_to 'Show', word
-      %td= link_to 'Edit', edit_word_path(word)
-      %td= link_to 'Destroy', word, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    = word.traditional_char
+    = word.simplified_char
+    = word.pronunciation
+    = word.meaning
 
-%br
 
-= link_to 'New Word', new_word_path
+
