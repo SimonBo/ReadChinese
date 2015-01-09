@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Traditional char:
+  = @word.traditional_char
+%p
+  %b Simplified char:
+  = @word.simplified_char
+%p
+  %b Meaning:
+  = @word.meaning
+%p
+  %b Pronunciation:
+  = @word.pronunciation
+
+= link_to 'Edit', edit_word_path(@word)
+\|
+= link_to 'Back', words_path

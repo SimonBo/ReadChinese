@@ -1,0 +1,11 @@
+= simple_form_for(@word) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :traditional_char
+    = f.input :simplified_char
+    = f.input :meaning
+    = f.input :pronunciation
+
+  .form-actions
+    = f.button :submit
