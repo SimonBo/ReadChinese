@@ -1,0 +1,9 @@
+= simple_form_for(@favorite_word) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :word
+
+  .form-actions
+    = f.button :submit

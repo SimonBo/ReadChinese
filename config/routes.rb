@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :favorite_words
+
   devise_for :users
   resources :words
 

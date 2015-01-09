@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @favorite_word.user
+%p
+  %b Word:
+  = @favorite_word.word
+
+= link_to 'Edit', edit_favorite_word_path(@favorite_word)
+\|
+= link_to 'Back', favorite_words_path

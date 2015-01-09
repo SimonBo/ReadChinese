@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109120507) do
+ActiveRecord::Schema.define(version: 20150109124811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorite_words", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "word_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorite_words", ["user_id"], name: "index_favorite_words_on_user_id", using: :btree
+  add_index "favorite_words", ["word_id"], name: "index_favorite_words_on_word_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

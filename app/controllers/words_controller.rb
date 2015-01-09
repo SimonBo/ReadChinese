@@ -1,6 +1,10 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy]
 
+  def favorite_word
+    @word = Word.find(params[:word_id])
+    @word.favorite(current_user)
+  end
   # GET /words
   # GET /words.json
   def index
