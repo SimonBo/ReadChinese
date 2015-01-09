@@ -27,25 +27,28 @@ Then(/^an "(.*?)" and "(.*?)" is displayed on the site$/) do |arg1, arg2|
 end
 
 Given(/^a registered user$/) do
-  pending # express the regexp above with the code you wish you had
+  @user = FactoryGirl.create(:user)
 end
 
 
 Given(/^a user logs in$/) do
   visit root_path
-  click 'Log in'
+  click_on 'Sign in'
   page.has_content?("Email")
   fill_in 'Email', :with => @user.email
   fill_in 'Password', :with => @user.password
-  click_button 'Log in'
+  click_button 'Sign in'
 end
 
 Given(/^the user finds a word in dictionary$/) do
-  pending # express the regexp above with the code you wish you had
+  fill_in 'word_to_lookup', :with => '笨蛋'
+  click_button 'lookup_word'
+  page.has_content?("Here's what we found:")
+  page.has_content?("idiot")
 end
 
 Given(/^the user favorites it$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_css(".favorite_word")
 end
 
 When(/^that word is not in user's favorites$/) do
