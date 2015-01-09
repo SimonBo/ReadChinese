@@ -5,13 +5,15 @@
     = text_field_tag :query, params[:query], id: 'word_to_lookup'
     = submit_tag "Search", name: nil, id: 'lookup_word'
 
-- if @words.any?
+- if @words
   %p Here's what we found:
   - @words.each do |word|
-    = word.traditional_char
-    = word.simplified_char
-    = word.pronunciation
-    = word.meaning
+    .row
+      .col-md-8.dict_entry
+        %p= word.traditional_char
+        %p= word.simplified_char
+        %p= word.pronunciation
+        %p= word.meaning
 
 
 

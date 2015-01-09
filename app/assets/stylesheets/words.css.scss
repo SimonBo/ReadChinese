@@ -1,3 +1,9 @@
 // Place all the styles related to the Words controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.dict_entry{
+  background-color: beige;
+  border-radius: 50px;
+  margin-bottom: 1em;
+  padding: 1em 0 1em 2em;
+}
