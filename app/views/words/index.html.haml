@@ -14,7 +14,7 @@
         %p= word.simplified_char
         %p= word.pronunciation
         %p= word.meaning
-        = link_to 'Fav', favorite_words_path(word, current_user) if user_signed_in?
-
-
-
+        - if user_signed_in? && !current_user.faved_word?(word)
+          = button_to 'Fav', favorite_word_path(word.id)
+        - elsif user_signed_in? && current_user.faved_word?(word)
+          Faved

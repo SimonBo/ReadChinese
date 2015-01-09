@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :favorite_words
+  # resources :favorite_words
 
   devise_for :users
   resources :words
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root 'words#index'
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  post 'words/favorite_word/:id' => 'words#favorite_word', as: :favorite_word
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

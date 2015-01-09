@@ -16,8 +16,12 @@ User can input chines word and get english meaning + pronunciation
   Scenario: Favorite a new word
     Given a registered user
     Given a user logs in
-    And the user finds a word in dictionary
+    And the user finds a word in dictionary that he hasn't favorited before
     And the user favorites it
-    When that word is not in user's favorites
     Then that word is added to the user's favorite words
 
+  Scenario: See that word has been favorited
+    Given a registered user
+    Given a user logs in
+    And the user finds a word in dictionary that he has favorited before
+    Then the user sees that it has been favorited by him

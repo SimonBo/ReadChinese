@@ -2,8 +2,15 @@ class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy]
 
   def favorite_word
-    @word = Word.find(params[:word_id])
+    @word = Word.find(params[:id])
     @word.favorite(current_user)
+    respond_to do |f|
+      if @word.save
+        f.html { redirect_to root_path, notice: 'Word favorited!'}
+      else
+        f.html { redirect_to root_path, notice: 'Failed'}
+      end
+    end
   end
   # GET /words
   # GET /words.json
