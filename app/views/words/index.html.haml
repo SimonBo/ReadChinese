@@ -13,8 +13,8 @@
 
         %p= word.traditional_char
         %p= word.simplified_char
-        %p= word.pronunciation
-        %p= word.meaning
+        %p{:id => "pronunciation_for_#{word.id}", :class => "pronunciation"}= word.pronunciation
+        %p{:id => "meaning_for_#{word.id}", :class => "meaning"}= word.meaning
         - if user_signed_in? && !current_user.faved_word?(word)
           = button_to 'Fav', favorite_word_path(word.id), id: "favorite_button_for_#{word.id}"
         - elsif user_signed_in? && current_user.faved_word?(word)
