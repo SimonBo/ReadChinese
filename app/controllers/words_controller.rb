@@ -4,11 +4,12 @@ class WordsController < ApplicationController
   def favorite_word
     @word = Word.find(params[:id])
     @word.favorite(current_user)
-    respond_to do |f|
-      if @word.save
-        f.html { redirect_to root_path, notice: 'Word favorited!'}
+    respond_to do |format|
+      search_url = session[:previous_url]
+      if current_user.save
+        format.html { redirect_to search_url, notice: 'Word favorited!' }
       else
-        f.html { redirect_to root_path, notice: 'Failed'}
+        format.html { redirect_to search_url, notice: 'Failed'}
       end
     end
   end
@@ -82,4 +83,4 @@ class WordsController < ApplicationController
     def word_params
       params.require(:word).permit(:traditional_char, :simplified_char, :meaning, :pronunciation)
     end
-end
+  end

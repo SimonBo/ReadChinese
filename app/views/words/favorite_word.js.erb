@@ -1,0 +1,6 @@
+<% if @word.errors.messages.blank? %>
+  $("#favorite_button_for_#{word.id}").remove();
+  $("dict_entry_for_#{word.id}").append('Faved');
+<% else %>
+  $('#errors').html("<%= j(render 'errors') %>");
+<% end %>

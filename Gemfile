@@ -27,6 +27,8 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'guard-cucumber'
   gem 'guard-livereload', require: false
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'

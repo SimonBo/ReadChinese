@@ -44,6 +44,7 @@ Given(/^the user finds a word in dictionary that he hasn't favorited before$/) d
   click_button 'lookup_word'
   page.has_content?("Here's what we found:")
   page.has_content?("idiot")
+  @search_result_path = current_path
 end
 
 Given(/^the user favorites it$/) do
@@ -69,3 +70,6 @@ Then(/^the user sees that it has been favorited by him$/) do
   page.has_content?("Faved")
 end
 
+Then(/^the user is redirected to the same search results page$/) do
+  expect(current_path).to eq @search_result_path
+end

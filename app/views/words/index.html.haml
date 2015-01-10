@@ -9,12 +9,13 @@
   %p Here's what we found:
   - @words.each do |word|
     .row
-      .col-md-8.dict_entry
+      %div{:id => "dict_entry_for_#{word.id}", :class => "col-md-8  dict_entry"}
+
         %p= word.traditional_char
         %p= word.simplified_char
         %p= word.pronunciation
         %p= word.meaning
         - if user_signed_in? && !current_user.faved_word?(word)
-          = button_to 'Fav', favorite_word_path(word.id)
+          = button_to 'Fav', favorite_word_path(word.id), id: "favorite_button_for_#{word.id}"
         - elsif user_signed_in? && current_user.faved_word?(word)
           Faved

@@ -19,6 +19,7 @@ User can input chines word and get english meaning + pronunciation
     And the user finds a word in dictionary that he hasn't favorited before
     And the user favorites it
     Then that word is added to the user's favorite words
+    And the user is redirected to the same search results page
 
   Scenario: See that word has been favorited
     Given a registered user
