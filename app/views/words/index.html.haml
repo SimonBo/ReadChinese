@@ -6,7 +6,7 @@
     = submit_tag "Search", name: nil, id: 'lookup_word'
 
 - if @words
-  %p Here's what we found:
+  %h3 Here's what we found:
   - @words.each do |word|
     .row
       %div{:id => "dict_entry_for_#{word.id}", :class => "col-md-8  dict_entry"}
