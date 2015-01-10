@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :favorite_words
+
 
   def faved_word?(word)
-    self.favorite_words.pluck(:word_id).include? word.id
+    self.favorite_words.include? word.id
   end
 end

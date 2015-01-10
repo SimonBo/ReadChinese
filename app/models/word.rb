@@ -1,10 +1,9 @@
 class Word < ActiveRecord::Base
 
-  has_many :favorite_words
-
   def favorite(user)
-    faved_word = FavoriteWord.create(word_id: self.id, user_id: user.id)
-    faved_word.save!
+    user.favorite_words_will_change!
+    user.favorite_words << self.id
+    user.save!
   end
 
   def self.text_search(query)

@@ -52,13 +52,13 @@ end
 
 Then(/^that word is added to the user's favorite words$/) do
   word = Word.where(simplified_char: '笨蛋')
-  expect(@user.favorite_words.count).to eq 1
-  expect(@user.favorite_words.pluck(:word_id)).to include word.first.id
+  expect(@user.reload.favorite_words.count).to eq 1
+  expect(@user.reload.favorite_words).to include word.first.id
 end
 
 Given(/^the user finds a word in dictionary that he has favorited before$/) do
   word = Word.where(simplified_char: '笨蛋').first
-  fav = FactoryGirl.create(:favorite_word, user: @user, word: word)
+  @user.favorite_words << word.id
   expect(@user.favorite_words.count).to equal 1
 
   fill_in 'word_to_lookup', :with => '笨蛋'
