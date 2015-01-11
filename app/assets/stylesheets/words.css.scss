@@ -7,3 +7,10 @@
   margin-bottom: 1em;
   padding: 1em 0 1em 2em;
 }
+.pronunciation, .character, .meaning, .word-label{
+  display: inline;
+}
+
+.pinyin{
+  /*display: inline-block;*/
+}

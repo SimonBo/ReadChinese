@@ -2,9 +2,14 @@ DictionaryFormatter =
   format_pronunciation: (data) ->
     p_id = data[0].id
     text_to_replace = data.text()
+    # console.log text_to_replace
     pinyin = PinyinConverter.convert(text_to_replace).replace(/[\][]/g, '')
     target_element = $("#" + "#{p_id}")
+    # target_element.html("")
+    # target_element.html("<b>Pinyin:</b> #{pinyin}")
+    # console.log target_element.text()
     target_element.text(pinyin)
+    console.log target_element.text()[1..6]
 
 
   format_meaning: (data) ->
