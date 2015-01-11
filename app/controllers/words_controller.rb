@@ -1,6 +1,15 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy]
 
+  def favorite_words
+    @favorite_words = []
+    current_user.favorite_words.each do |id|
+      word = Word.find(id)
+      @favorite_words << word
+    end
+    return @favorite_words
+  end
+
   def favorite_word
     @word = Word.find(params[:id])
     @word.favorite(current_user)

@@ -1,0 +1,20 @@
+%h1 Your favorite words:
+- @favorite_words.each do |word|
+  .row
+    %div{:id => "dict_entry_for_#{word.id}", :class => "dict_entry"}
+
+      %p.word-label
+        %b Traditional character:
+        %p.character= word.traditional_char
+
+      %p.word-label
+        %b Simplified character:
+        %p.character= word.simplified_char
+
+      %p.word-label
+        %b Pinyin: 
+        %p{:id => "pronunciation_for_#{word.id}", :class => "pronunciation"}= word.pronunciation
+        
+      %p.word-label
+        %b Meaning:
+        %p{:id => "meaning_for_#{word.id}", :class => "meaning"}= word.meaning

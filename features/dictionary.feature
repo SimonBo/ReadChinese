@@ -26,3 +26,10 @@ User can input chines word and get english meaning + pronunciation
     Given a user logs in
     And the user finds a word in dictionary that he has favorited before
     Then the user sees that it has been favorited by him
+
+  Scenario: See list of favorite words
+    Given a registered user
+    Given a user logs in
+    And the user has a few favorited words
+    And the user clicks on "My favorite words" link
+    Then the user can see a list of all the words he has favorited

@@ -40,11 +40,11 @@ Given(/^a user logs in$/) do
 end
 
 Given(/^the user finds a word in dictionary that he hasn't favorited before$/) do
-  fill_in 'word_to_lookup', :with => '笨蛋'
-  click_button 'lookup_word'
-  page.has_content?("Here's what we found:")
-  page.has_content?("idiot")
-  @search_result_path = current_path
+fill_in 'word_to_lookup', :with => '笨蛋'
+click_button 'lookup_word'
+page.has_content?("Here's what we found:")
+page.has_content?("idiot")
+@search_result_path = current_path
 end
 
 Given(/^the user favorites it$/) do
@@ -52,9 +52,9 @@ Given(/^the user favorites it$/) do
 end
 
 Then(/^that word is added to the user's favorite words$/) do
-  word = Word.where(simplified_char: '笨蛋')
-  expect(@user.reload.favorite_words.count).to eq 1
-  expect(@user.reload.favorite_words).to include word.first.id
+word = Word.where(simplified_char: '笨蛋')
+expect(@user.reload.favorite_words.count).to eq 1
+expect(@user.reload.favorite_words).to include word.first.id
 end
 
 Given(/^the user finds a word in dictionary that he has favorited before$/) do
@@ -72,4 +72,18 @@ end
 
 Then(/^the user is redirected to the same search results page$/) do
   expect(current_path).to eq @search_result_path
+end
+
+Given(/^the user has a few favorited words$/) do
+  @word = Word.first
+  @user.favorite_words << @word
+end
+
+
+Given(/^the user clicks on "(.*?)" link$/) do |arg1|
+  click_on arg1
+end
+
+Then(/^the user can see a list of all the words he has favorited$/) do
+  page.has_content? @word.simplified_char
 end
