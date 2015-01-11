@@ -86,3 +86,9 @@ section {
   @extend .btn-md;
   @extend .btn-primary;
 }
+
+.fav-btn{
+  @extend .btn;
+  @extend .btn-md;
+  @extend .btn-success; 
+}

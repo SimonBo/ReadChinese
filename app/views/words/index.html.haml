@@ -28,6 +28,6 @@
             %b Meaning:
             %p{:id => "meaning_for_#{word.id}", :class => "meaning"}= word.meaning
           - if user_signed_in? && !current_user.faved_word?(word)
-            = button_to 'Fav', favorite_word_path(word.id), id: "favorite_button_for_#{word.id}"
+            = button_to 'Favorite', favorite_word_path(word.id), id: "favorite_button_for_#{word.id}", class: 'fav-btn'
           - elsif user_signed_in? && current_user.faved_word?(word)
-            Faved
+            %h4 Faved
