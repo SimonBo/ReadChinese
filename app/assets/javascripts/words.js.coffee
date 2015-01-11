@@ -9,7 +9,7 @@ DictionaryFormatter =
     # target_element.html("<b>Pinyin:</b> #{pinyin}")
     # console.log target_element.text()
     target_element.text(pinyin)
-    console.log target_element.text()[1..6]
+    # console.log target_element.text()[1..6]
 
 
   format_meaning: (data) ->

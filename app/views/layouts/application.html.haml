@@ -11,8 +11,8 @@
     %header
       = render 'layouts/navigation'
     %main{:role => "main"}
-      .container
+      .container-fluid
         .row
-          .col-md-8.col-md-offset-2.center-block
+          .col-sm-10.col-sm-offset-2.center-text
             = render 'layouts/messages'
             = yield

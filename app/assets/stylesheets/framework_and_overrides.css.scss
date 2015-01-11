@@ -34,10 +34,10 @@ img {
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
-  @extend .container;
+  // @extend .container;
   // background-color: #eee;
   padding-bottom: 80px;
-  width: 100%;
+  // width: 100%;
   margin-top: 51px; // accommodate the navbar
   }
 section {
@@ -79,4 +79,10 @@ section {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-xs;
+}
+
+#lookup_word{
+  @extend .btn;
+  @extend .btn-md;
+  @extend .btn-primary;
 }
