@@ -1,9 +1,11 @@
 class Word < ActiveRecord::Base
 
   def favorite(user)
-    user.favorite_words_will_change!
-    user.favorite_words << self.id
-    user.save!
+    unless user.favorite_words.include? self.id
+      user.favorite_words_will_change!
+      user.favorite_words << self.id
+      user.save!
+    end
   end
 
   def self.text_search(query)
