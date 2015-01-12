@@ -1,5 +1,17 @@
 class WordsController < ApplicationController
-  before_action :set_word, only: [:show, :edit, :update, :destroy]
+  before_action :set_word, only: [:show, :edit, :update, :destroy, :unfavorite_word, :favorite_word]
+
+  def unfavorite_word
+    word_id = params[:id]
+    current_user.favorite_words.delete(word_id)
+    respond_to do |format|
+      if current_user.save
+        format.html { redirect_to favorite_words_path, success: 'Unfavorited the word!' }
+      else
+        format.html { redirect_to favorite_words_path, warning: 'Failed' }
+      end
+    end
+  end
 
   def favorite_words
     @favorite_words = []
@@ -11,7 +23,6 @@ class WordsController < ApplicationController
   end
 
   def favorite_word
-    @word = Word.find(params[:id])
     @word.favorite(current_user)
     respond_to do |format|
       search_url = session[:previous_url]

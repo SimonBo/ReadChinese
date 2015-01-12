@@ -14,11 +14,11 @@ Given(/^a user visits the homepage$/) do
   visit root_path
 end
 
-Given(/^a user searches for a "(.*?)"$/) do |arg1|
+Given(/^a user searches for "(.*?)"$/) do |arg1|
   fill_in 'word_to_lookup', :with => arg1
   click_button 'lookup_word'
-  page.has_content?("Here's what we found:")
 end
+
 
 Then(/^an "(.*?)" and "(.*?)" is displayed on the site$/) do |arg1, arg2|
   expect(page).to have_content arg1
@@ -76,7 +76,9 @@ end
 
 Given(/^the user has a few favorited words$/) do
   @word = Word.first
-  @user.favorite_words << @word
+  @word2 = Word.second
+  @user.favorite_words << @word.id
+  @user.favorite_words << @word2.id
 end
 
 
@@ -85,5 +87,31 @@ Given(/^the user clicks on "(.*?)" link$/) do |arg1|
 end
 
 Then(/^the user can see a list of all the words he has favorited$/) do
-  page.has_content? @word.simplified_char
+  expect(page).to have_content @word.simplified_char
 end
+
+Given(/^a registered user visits his favorite words page$/) do
+  steps %{
+    Given a registered user
+    Given a user logs in
+    And the user has a few favorited words
+    And the user clicks on "My favorite words" link
+  }
+end
+
+When(/^the user click on "(.*?)" button$/) do |arg1|
+  click_button arg1
+end
+
+Then(/^the word is removed from the list of his favorites$/) do
+  expect(@user.favorite_words).not_to include @word.id
+end
+
+When(/^the user clicks on the unfavorite button$/) do
+  click_button 'Unfavorite'
+end
+
+Then(/^matching words are displayed on the site$/) do
+  expect(page).to have_content '笨蛋'
+end
+

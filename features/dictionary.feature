@@ -1,11 +1,11 @@
 Feature: Checking the meaning/pronunciation of chinese words
-User can input chines word and get english meaning + pronunciation
+User can input chinese words and get english meaning + pronunciation
   Background:
     Given chinese words in database
 
   Scenario Outline: Check meaning of a word
     Given a user visits the homepage
-    And a user searches for a "<chinese_word>"
+    And a user searches for "<chinese_word>"
     Then an "<definition>" and "<pronunciation>" is displayed on the site
 
     Examples:
@@ -26,6 +26,7 @@ User can input chines word and get english meaning + pronunciation
     Given a user logs in
     And the user finds a word in dictionary that he has favorited before
     Then the user sees that it has been favorited by him
+  
 
   Scenario: See list of favorite words
     Given a registered user
@@ -33,3 +34,13 @@ User can input chines word and get english meaning + pronunciation
     And the user has a few favorited words
     And the user clicks on "My favorite words" link
     Then the user can see a list of all the words he has favorited
+
+  Scenario: Unfavorite a word
+    Given a registered user visits his favorite words page
+    When the user clicks on the unfavorite button
+    Then the word is removed from the list of his favorites
+
+  Scenario: Look up a word by pinyin
+    Given a user visits the homepage
+    And a user searches for "ben dan"
+    Then matching words are displayed on the site

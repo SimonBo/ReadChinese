@@ -18,3 +18,4 @@
       %p.word-label
         %b Meaning:
         %p{:id => "meaning_for_#{word.id}", :class => "meaning"}= word.meaning
+      = button_to 'Unfavorite', unfavorite_word_path(word.id), method: :delete, id: "unfavorite_button_for_#{word.id}", class: 'unfav-btn'
