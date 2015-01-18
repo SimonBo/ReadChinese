@@ -10,8 +10,8 @@ User can input chinese words and get english meaning + pronunciation
 
     Examples:
       | chinese_word  | definition  | pronunciation |
-      | 笨蛋               | fool  | [ben4", "dan4] |
-      | 水  | water  | ["[Shui3]"] |
+      | 笨蛋               | fool  | ben4 dan4 |
+      | 水  | water  | Shui3 |
 
   Scenario: Favorite a new word
     Given a registered user

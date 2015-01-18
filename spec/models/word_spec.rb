@@ -3,30 +3,37 @@ require 'rails_helper'
 RSpec.describe Word, :type => :model do
   describe 'User searches for a word' do
     before do 
-      traditional_chars = ['笨蛋', '水', '中國']
-      simplified_chars = ['笨蛋', '水', '中国']
-      meanings = ['/fool/idiot/', '/water/', '/China/']
-      pronunciation = ['ben4 dan4', 'Shui3', 'Zhong1 guo2']
+      traditional_chars = ['笨蛋', '水', '中國', '亭']
+      simplified_chars = ['笨蛋', '水', '中国', '亭']
+      meanings = ['/fool/idiot/', '/water/', '/China/', '/kiosk/']
+      pronunciation = ['ben4 dan4', 'Shui3', 'Zhong1 guo2', 'ting']
 
       3.times do |i|
         Word.create(traditional_char: traditional_chars[i], simplified_char: simplified_chars[i], meaning: meanings[i], pronunciation: pronunciation[i], pinyin_count: pronunciation[i].split.count)
       end
+      @idiot = Word.find_by_simplified_char('笨蛋')
+      @water = Word.find_by_simplified_char('水')
       @user = create(:user)
     end
 
+    it "returns true if the user's input is contains pinyin and not meaning words" do
+      input = 'ben dan'
+      expect(input.is_pinyin?).to eq true
+    end
+
     context 'search by simplified characters' do
-      it "returns true if given characters are letters" do
+      it "returns true if given characters are chinese characters" do
         @input = '笨蛋'
-        expect(@input)
+        expect(@input.multibyte?).to eq true
       end
       it "returns a list of words that contain characters from users input" do
-        @input = '笨蛋'
-        expect(Word.text_search(@input)).to include Word.first
+        @input = '笨蛋'        
+        expect(Word.text_search(@input)).to include @idiot
       end
 
       it "doesn't return words that dont contain characters form users input" do
-        @input = '笨蛋'
-        expect(Word.text_search(@input)).not_to include Word.second
+        @input = '笨蛋' 
+        expect(Word.text_search(@input)).not_to include @water
       end
     end
 
@@ -35,12 +42,23 @@ RSpec.describe Word, :type => :model do
         @input = 'ben dan'
       end
       it "returns an array of words with the same number of pinyin chunks" do
-        expect(Word.find_based_on_pinyin_count(@input)).to include Word.first and Word.second
+        expect(Word.find_based_on_pinyin_count(@input)).to include @idiot and @water
       end
 
       it "returns a list of words that have the same pin yin as the pin yin from users input" do
         expect(Word.find_based_on_pinyin(@input).count).to eq 1
-        expect(Word.find_based_on_pinyin(@input)).to include Word.first
+        expect(Word.find_based_on_pinyin(@input)).to include @idiot
+      end
+    end
+
+    context 'search by meaning' do
+      before do
+        @input = 'water'
+      end
+
+      it "returns an array of words that match the meaning input" do
+        expect(Word.find_based_on_meaning(@input)).to include @water
+        expect(Word.find_based_on_meaning(@input).count).to eq 1
       end
     end
 
