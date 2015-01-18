@@ -29,13 +29,17 @@ class Word < ActiveRecord::Base
   end
 
   def self.find_based_on_pinyin(query)
-    input = query.split
+    search_this = Word.find_based_on_pinyin_count(query).to_a
+    split_query = query.split
     result = []
-    Word.all.each do |word|
-      if  input.all? {|chunk| word.pronunciation.include? chunk}
-        result << word
-      end
+    search_this.each do |word|
+      result << word if split_query.all? { |e| word.pronunciation.include? e}
     end
     return result
+  end
+
+  def self.find_based_on_pinyin_count(pinyin)
+    pinyin_count = pinyin.split.count
+    Word.where('pinyin_count = ?', pinyin_count)
   end
 end

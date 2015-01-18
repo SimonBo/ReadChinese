@@ -9,7 +9,7 @@ RSpec.describe Word, :type => :model do
       pronunciation = ['ben4 dan4', 'Shui3', 'Zhong1 guo2']
 
       3.times do |i|
-        Word.create(traditional_char: traditional_chars[i], simplified_char: simplified_chars[i], meaning: meanings[i], pronunciation: pronunciation[i])
+        Word.create(traditional_char: traditional_chars[i], simplified_char: simplified_chars[i], meaning: meanings[i], pronunciation: pronunciation[i], pinyin_count: pronunciation[i].split.count)
       end
       @user = create(:user)
     end
@@ -31,8 +31,15 @@ RSpec.describe Word, :type => :model do
     end
 
     context 'search by pin yin (no tones)' do
-      it "returns a list of words that have the same pin yin as the pin yin from users input" do
+      before do
         @input = 'ben dan'
+      end
+      it "returns an array of words with the same number of pinyin chunks" do
+        expect(Word.find_based_on_pinyin_count(@input)).to include Word.first and Word.second
+      end
+
+      it "returns a list of words that have the same pin yin as the pin yin from users input" do
+        expect(Word.find_based_on_pinyin(@input).count).to eq 1
         expect(Word.find_based_on_pinyin(@input)).to include Word.first
       end
     end

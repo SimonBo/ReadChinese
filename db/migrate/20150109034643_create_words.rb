@@ -5,6 +5,7 @@ class CreateWords < ActiveRecord::Migration
       t.string :simplified_char
       t.string :meaning
       t.string :pronunciation
+      t.integer :pinyin_count
 
       t.timestamps
     end
