@@ -6,7 +6,7 @@ namespace :dict do
       traditional_char = one_line[0].to_s
       simplified_char = one_line[1].to_s
       char_count = traditional_char.length
-      pinyin = one_line[2..1+char_count].to_s
+      pinyin = one_line[2..1+char_count].to_s.gsub(/[^0-9a-z ]/i, '')
       meaning = one_line[2+char_count..-1].join(" ").to_s
 
       Word.create(traditional_char: traditional_char, simplified_char: simplified_char, pronunciation: pinyin, meaning: meaning)

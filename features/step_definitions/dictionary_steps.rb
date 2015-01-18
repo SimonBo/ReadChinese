@@ -79,6 +79,8 @@ Given(/^the user has a few favorited words$/) do
   @word2 = Word.second
   @user.favorite_words << @word.id
   @user.favorite_words << @word2.id
+  expect(@user.favorite_words).to include @word.id and @word2.id
+  @user.save
 end
 
 
@@ -87,7 +89,11 @@ Given(/^the user clicks on "(.*?)" link$/) do |arg1|
 end
 
 Then(/^the user can see a list of all the words he has favorited$/) do
-  expect(page).to have_content @word.simplified_char
+  expect(current_path).to eq favorite_words_path
+  # binding.pry
+  word = Word.find(@user.favorite_words.first)
+  expect(page).to have_content word.meaning
+  
 end
 
 Given(/^a registered user visits his favorite words page$/) do
@@ -95,8 +101,12 @@ Given(/^a registered user visits his favorite words page$/) do
     Given a registered user
     Given a user logs in
     And the user has a few favorited words
-    And the user clicks on "My favorite words" link
+    And the user visits his favorite words section
   }
+end
+
+Given(/^the user visits his favorite words section$/) do
+  visit favorite_words_path
 end
 
 When(/^the user click on "(.*?)" button$/) do |arg1|

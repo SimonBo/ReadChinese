@@ -1,14 +1,15 @@
 class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :unfavorite_word, :favorite_word]
+  # before_action :authenticate_user!, except: [:show, :index]
 
   def unfavorite_word
-    word_id = params[:id]
-    current_user.favorite_words.delete(word_id)
+    word = Word.find(params[:id])
+    word.unfavorite(current_user)
     respond_to do |format|
       if current_user.save
-        format.html { redirect_to favorite_words_path, success: 'Unfavorited the word!' }
+        format.html { redirect_to favorite_words_path, notice: 'Unfavorited the word!' }
       else
-        format.html { redirect_to favorite_words_path, warning: 'Failed' }
+        format.html { redirect_to favorite_words_path, notice: 'Failed' }
       end
     end
   end
