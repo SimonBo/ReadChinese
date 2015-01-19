@@ -48,7 +48,8 @@ class Word < ActiveRecord::Base
   def self.find_based_on_meaning(meaning)
     result = []
     Word.all.each do |word|
-      word_meanings = word.meaning.gsub(/,/, '').split
+      word_meanings = word.meaning.gsub(/,/, ' ').gsub(/[^0-9a-z ]/i, '')
+.split
       result << word if word_meanings.include? meaning
     end
     return result
