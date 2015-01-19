@@ -5,7 +5,7 @@ RSpec.describe Word, :type => :model do
     before do 
       traditional_chars = ['笨蛋', '水', '中國', '亭']
       simplified_chars = ['笨蛋', '水', '中国', '亭']
-      meanings = ['/fool/idiot/', '/water/', '/China/', '/kiosk/']
+      meanings = ['fool, idiot', 'water, surname', 'China', 'kiosk']
       pronunciation = ['ben4 dan4', 'Shui3', 'Zhong1 guo2', 'ting']
 
       3.times do |i|
@@ -16,10 +16,6 @@ RSpec.describe Word, :type => :model do
       @user = create(:user)
     end
 
-    it "returns true if the user's input is contains pinyin and not meaning words" do
-      input = 'ben dan'
-      expect(input.is_pinyin?).to eq true
-    end
 
     context 'search by simplified characters' do
       it "returns true if given characters are chinese characters" do
@@ -41,6 +37,10 @@ RSpec.describe Word, :type => :model do
       before do
         @input = 'ben dan'
       end
+      it "returns true if the user's input is contains pinyin and not meaning words" do
+        expect(@input.is_pinyin?).to eq true
+      end
+
       it "returns an array of words with the same number of pinyin chunks" do
         expect(Word.find_based_on_pinyin_count(@input)).to include @idiot and @water
       end

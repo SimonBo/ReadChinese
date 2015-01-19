@@ -15,16 +15,15 @@ class Word < ActiveRecord::Base
   end
 
   def self.text_search(query)
-    result = []
     if query.present?
       if query.is_a? String and query.multibyte?
-        result = Word.find_based_on_char(query)
+        Word.find_based_on_char(query)
+      elsif query.is_a? String and query.is_pinyin?
+        Word.find_based_on_pinyin(query)
       elsif query.is_a? String
-        result = Word.find_based_on_pinyin(query)
-        # result += Word.find_based_on_meaning(query)
+        Word.find_based_on_meaning(query)
       end
     end
-    return result
   end
 
   def self.find_based_on_char(query)
@@ -49,7 +48,8 @@ class Word < ActiveRecord::Base
   def self.find_based_on_meaning(meaning)
     result = []
     Word.all.each do |word|
-      result << word if word.meaning.include? meaning
+      word_meanings = word.meaning.gsub(/,/, '').split
+      result << word if word_meanings.include? meaning
     end
     return result
   end

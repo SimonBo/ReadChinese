@@ -26,9 +26,9 @@ ready = ->
     pronunciation.each () ->
       DictionaryFormatter.format_pronunciation($(this))
 
-  if meaning.length > 0
-    meaning.each ->
-      DictionaryFormatter.format_meaning($(this))
+  # if meaning.length > 0
+  #   meaning.each ->
+  #     DictionaryFormatter.format_meaning($(this))
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
