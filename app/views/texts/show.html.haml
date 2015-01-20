@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Content:
+  = @text.content
+%p
+  %b Source:
+  = @text.source
+%p
+  %b User:
+  = @text.user
+
+= link_to 'Edit', edit_text_path(@text)
+\|
+= link_to 'Back', texts_path
