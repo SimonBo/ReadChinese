@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'words/find/:word/:text' => 'words#find'
   resources :texts
 
   delete 'words/unfavorite_word/:id' => 'words#unfavorite_word', as: :unfavorite_word

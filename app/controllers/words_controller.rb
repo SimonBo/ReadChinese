@@ -2,6 +2,14 @@ class WordsController < ApplicationController
   before_action :set_word, only: [:show, :edit, :update, :destroy, :unfavorite_word, :favorite_word]
   # before_action :authenticate_user!, except: [:show, :index]
 
+
+  def find
+    @word = Word.find_words(params[:word], params[:text])
+    respond_to do |format|
+      format.json {render :json => @word}
+    end
+  end
+  
   def unfavorite_word
     word = Word.find(params[:id])
     word.unfavorite(current_user)
