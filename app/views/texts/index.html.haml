@@ -4,14 +4,15 @@
     .row
       - chunk.each do |text|
         .col-sm-6.col-md-4
-          .thumbnail
+          .thumbnail.text-preview-thumb
             .caption
-              = link_to text.title, text_path(text), class: 'text-title-link h3'
+              = link_to truncate(text.title), text_path(text), class: 'text-title-link h3'
               %p
                 Added by: #{text.user}
               %p
                 Source: #{short_source_link(text)}
-              %p= text.content
+              %p= truncate(text.content, length: 100)
+          
 
   %br
 
