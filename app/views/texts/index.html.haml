@@ -1,26 +1,17 @@
 %h1 Listing texts
-- @texts.each do |text|
+- @texts.each_slice(3).to_a.each do |chunk|
   .row
-    .col-sm-6.col-md-4
-      .thumbnail
-        .caption
-          %h3= text.title
-          %p
-            Added by: #{text.user}
-          %p
-            Source: #{short_source_link(text)}
-          %p= text.content
-
-
-  / - @texts.each do |text|
-  /   %tr
-  /     %td= text.content
-  /     %td= text.source
-  /     %td= text.user
-  /     %td= link_to 'Show', text
-  /     %td= link_to 'Edit', edit_text_path(text)
-  /     %td= link_to 'Destroy', text, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    - chunk.each do |text|
+      .col-sm-6.col-md-4
+        .thumbnail
+          .caption
+            %h3= text.title
+            %p
+              Added by: #{text.user}
+            %p
+              Source: #{short_source_link(text)}
+            %p= text.content
 
 %br
 
-= link_to 'New Text', new_text_path
+= link_to 'New Text', new_text_path, class: 'btn btn-md btn-primary'
