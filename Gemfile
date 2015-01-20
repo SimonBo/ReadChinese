@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'pg_search'
+
 gem 'haml'
 gem 'haml-rails', :group => :development
 gem 'bootstrap-sass'
