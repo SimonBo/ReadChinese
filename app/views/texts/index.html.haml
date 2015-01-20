@@ -7,8 +7,9 @@
           .thumbnail.text-preview-thumb
             .caption
               = link_to truncate(text.title), text_path(text), class: 'text-title-link h3'
-              %p
-                Added by: #{text.user}
+              - unless text.user.nil?
+                %p
+                  Added by: #{text.user.email} 
               %p
                 Source: #{short_source_link(text)}
               %p= truncate(text.content, length: 100)
