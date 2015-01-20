@@ -1,22 +1,25 @@
 %h1 Listing texts
+- @texts.each do |text|
+  .row
+    .col-sm-6.col-md-4
+      .thumbnail
+        .caption
+          %h3= text.title
+          %p
+            Added by: #{text.user}
+          %p
+            Source: #{short_source_link(text)}
+          %p= text.content
 
-%table
-  %tr
-    %th Content
-    %th Source
-    %th User
-    %th
-    %th
-    %th
 
-  - @texts.each do |text|
-    %tr
-      %td= text.content
-      %td= text.source
-      %td= text.user
-      %td= link_to 'Show', text
-      %td= link_to 'Edit', edit_text_path(text)
-      %td= link_to 'Destroy', text, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  / - @texts.each do |text|
+  /   %tr
+  /     %td= text.content
+  /     %td= text.source
+  /     %td= text.user
+  /     %td= link_to 'Show', text
+  /     %td= link_to 'Edit', edit_text_path(text)
+  /     %td= link_to 'Destroy', text, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

@@ -2,7 +2,7 @@ Feature: Adding, editing and reading chinese texts added by users
   Background:
     Given chinese texts in database
 
-  @javascript
+  # @javascript
   Scenario: Add text
     Given a logged in user
     Given a user visits the homepage
