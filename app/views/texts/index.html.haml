@@ -1,6 +1,7 @@
 .col-md-10
   %h1 Listing texts
-  = link_to 'Add Text', new_text_path, class: 'btn btn-md btn-primary'
+  - if user_signed_in?
+    = link_to 'Add Text', new_text_path, class: 'btn btn-md btn-primary'
   %br
   %br
   - @texts.each_slice(3).to_a.each do |chunk|

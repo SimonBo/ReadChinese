@@ -10,7 +10,7 @@ DictionaryChecker =
         $('#notice').text()
         if data.length >0
           checked_word = data[0].id
-          DictionaryChecker.increment_checked_words(checked_word)
+          DictionaryChecker.increment_checked_words(checked_word) if $('#user_signed_in').length > 0
           DictionaryChecker.reset_info_fields()
           DictionaryChecker.render_dictionary_entry(data)
         else
