@@ -1,17 +1,18 @@
-%h1 Listing texts
-- @texts.each_slice(3).to_a.each do |chunk|
-  .row
-    - chunk.each do |text|
-      .col-sm-6.col-md-4
-        .thumbnail
-          .caption
-            %h3= text.title
-            %p
-              Added by: #{text.user}
-            %p
-              Source: #{short_source_link(text)}
-            %p= text.content
+.col-md-10
+  %h1 Listing texts
+  - @texts.each_slice(3).to_a.each do |chunk|
+    .row
+      - chunk.each do |text|
+        .col-sm-6.col-md-4
+          .thumbnail
+            .caption
+              = link_to text.title, text_path(text), class: 'text-title-link h3'
+              %p
+                Added by: #{text.user}
+              %p
+                Source: #{short_source_link(text)}
+              %p= text.content
 
-%br
+  %br
 
-= link_to 'New Text', new_text_path, class: 'btn btn-md btn-primary'
+  = link_to 'New Text', new_text_path, class: 'btn btn-md btn-primary'
