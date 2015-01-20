@@ -1,4 +1,9 @@
 source 'https://rubygems.org'
+ruby 2.1.0
+gem 'unicorn'
+group :production do
+  gem 'rails_12factor' 
+end
 
 gem 'haml'
 gem 'haml-rails', :group => :development
