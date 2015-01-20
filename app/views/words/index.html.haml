@@ -8,6 +8,8 @@
       = submit_tag "Search", name: nil, id: 'lookup_word'
 
   - if @words.nil?
+    %h2 
+      Or work on you #{link_to "reading skill!", texts_path}
   - elsif  @words.blank?
     %h3 Nothing found, sorry!
   - elsif @words
