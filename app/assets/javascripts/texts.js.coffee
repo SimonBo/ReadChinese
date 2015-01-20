@@ -69,6 +69,8 @@ FontResizer =
 
 ready = ->
   character = $(".character")
+  text_title_character = $(".text-title-character")
+
   text = $('#text')
   original_font_size = text.css('font-size')
 
@@ -85,7 +87,12 @@ ready = ->
     FontResizer.reset_font(original_font_size, text)
 
   character.on 'click', (e) ->
-    target_word = $(this).data('index')
+    target_word = text_title_character.length + $(this).data('index')
+    target_text = $('#text').data('id')
+    DictionaryChecker.request(target_word, target_text)
+
+  text_title_character.on 'click', (e) ->
+    target_word = $(this).data('title-index')
     target_text = $('#text').data('id')
     DictionaryChecker.request(target_word, target_text)
     

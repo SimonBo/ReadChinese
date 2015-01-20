@@ -9,7 +9,9 @@
         %strong Meaning:
 .row
   .col-md-10
-    %h3= @text.title
+    #text-title{"data-id"=> @text.id}
+      - @text.title.each_char.with_index do |c, index|
+        %span.text-title-character{"data-title-index" => index}= c
     %h4
       Added by: #{@text.user}
     %h5
