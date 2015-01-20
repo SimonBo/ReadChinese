@@ -35,6 +35,11 @@ class Word < ActiveRecord::Base
     # puts final_match
     Word.where('simplified_char = ?', final_match)
   end
+
+  def mark_as_checked(user)
+    word = user.checked_words.find_or_create_by(word_id: self.id)
+    word.save
+  end
   
   def favorite(user)
     unless user.favorite_words.include? self.id
@@ -85,7 +90,7 @@ class Word < ActiveRecord::Base
     result = []
     Word.all.each do |word|
       word_meanings = word.meaning.gsub(/,/, ' ').gsub(/[^0-9a-z ]/i, '')
-.split
+      .split
       result << word if word_meanings.include? meaning
     end
     return result

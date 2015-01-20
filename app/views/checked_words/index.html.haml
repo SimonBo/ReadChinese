@@ -1,0 +1,21 @@
+%h1 Listing checked_words
+
+%table
+  %tr
+    %th User
+    %th Word
+    %th
+    %th
+    %th
+
+  - @checked_words.each do |checked_word|
+    %tr
+      %td= checked_word.user
+      %td= checked_word.word
+      %td= link_to 'Show', checked_word
+      %td= link_to 'Edit', edit_checked_word_path(checked_word)
+      %td= link_to 'Destroy', checked_word, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Checked word', new_checked_word_path

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :checked_words
+  get 'checked_words/mark_as_checked/:checked_word' => "checked_words#mark_as_checked", as: 'mark_as_checked'
   get 'words/find/:word/:text' => 'words#find'
   resources :texts
 
