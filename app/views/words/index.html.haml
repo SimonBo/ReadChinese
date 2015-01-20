@@ -7,10 +7,9 @@
       = text_field_tag :query, params[:query], id: 'word_to_lookup'
       = submit_tag "Search", name: nil, id: 'lookup_word'
 
-  - if @words.blank?
+  - if @words.nil?
+  - elsif  @words.blank?
     %h3 Nothing found, sorry!
-
-  - elsif @words.nil?
   - elsif @words
     %h3 Here's what we found:
     - @words.each do |word|
