@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120080106) do
+ActiveRecord::Schema.define(version: 20150120100938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150120080106) do
     t.integer  "word_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "counter",    default: 0
   end
 
   add_index "checked_words", ["user_id"], name: "index_checked_words_on_user_id", using: :btree

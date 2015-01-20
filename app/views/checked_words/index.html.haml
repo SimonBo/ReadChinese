@@ -9,6 +9,8 @@
             .thumbnail.checked-word-thumb
               .caption
                 %p
+                  Checked #{pluralize checked_word.counter, 'time'}
+                %p
                   Simplified character: #{checked_word.word.simplified_char}
                 %p
                   Traditional character: #{checked_word.word.traditional_char}

@@ -39,6 +39,7 @@ class Word < ActiveRecord::Base
 
   def mark_as_checked(user)
     word = user.checked_words.find_or_create_by(word_id: self.id)
+    word.counter += 1
     word.save
   end
   

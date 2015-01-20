@@ -5,7 +5,7 @@ class CheckedWordsController < ApplicationController
   # GET /checked_words.json
   def index
     @user = User.find(current_user)
-    @checked_words = @user.checked_words.order(created_at: :desc)
+    @checked_words = @user.checked_words.order(counter: :desc)
   end
 
   # GET /checked_words/1
@@ -78,6 +78,6 @@ class CheckedWordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checked_word_params
-      params.require(:checked_word).permit(:user_id, :word_id)
+      params.require(:checked_word).permit(:user_id, :word_id, :counter)
     end
   end
