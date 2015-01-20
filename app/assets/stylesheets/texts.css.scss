@@ -4,6 +4,11 @@
 
 #dict {
   font-size: 1.5em;
+  display: block;
+  // height: 35px;
+  width: 100%;
+  z-index: 9999;
+  background-color: beige;
 }
 #text, #text-title {
   font-size: 1.2em;
