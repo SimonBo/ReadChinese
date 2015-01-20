@@ -1,3 +1,9 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+ready = ->
+  word_pronunciation = $('.checked_word_pronunciation')
+  if word_pronunciation.length > 0
+    for chunk in word_pronunciation
+      pinyin = PinyinConverter.convert(chunk.innerText)
+      $("##{chunk.id}").text(pinyin)
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

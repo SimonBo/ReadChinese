@@ -12,7 +12,7 @@
                   Simplified character: #{checked_word.word.simplified_char}
                 %p
                   Traditional character: #{checked_word.word.traditional_char}
-                %p
+                %p{ :class =>  "checked_word_pronunciation", :id => "pronunciation_for_#{checked_word.id}"}
                   Pronunciation: #{checked_word.word.pronunciation}
                 %p
                   Meaning: #{checked_word.word.meaning}
