@@ -1,0 +1,11 @@
+= simple_form_for(@text) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :content
+    = f.input :source
+    = f.input :user_id, as: :hidden,  :input_html => {value: current_user.id}
+
+  .form-actions
+    = f.button :submit

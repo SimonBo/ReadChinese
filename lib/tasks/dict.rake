@@ -8,7 +8,7 @@ namespace :dict do
       char_count = traditional_char.length
       pinyin = one_line[2..1+char_count].to_s.gsub(/[^0-9a-z ]/i, '')
       pinyin_count = pinyin.split.count
-      meaning = one_line[2+char_count..-1].join(" ").to_s.gsub(/\//, ',')[1..-2]
+      meaning = one_line[2+char_count..-1].join(" ").to_s.gsub(/\//, ',')[1..-2].gsub(/,/, ', ')
 
       Word.create(traditional_char: traditional_char, simplified_char: simplified_char, pronunciation: pinyin, pinyin_count: pinyin_count,meaning: meaning)
     end

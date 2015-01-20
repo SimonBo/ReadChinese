@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :checked_words
+  get 'checked_words/mark_as_checked/:checked_word' => "checked_words#mark_as_checked", as: 'mark_as_checked'
+  get 'words/find/:word/:text' => 'words#find'
+  resources :texts
+
   delete 'words/unfavorite_word/:id' => 'words#unfavorite_word', as: :unfavorite_word
   post 'words/favorite_word/:id' => 'words#favorite_word', as: :favorite_word
   get 'words/favorite_words' => 'words#favorite_words', as: :favorite_words

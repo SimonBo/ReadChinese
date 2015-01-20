@@ -1,0 +1,23 @@
+.col-md-10
+  %h1 Listing texts
+  = link_to 'Add Text', new_text_path, class: 'btn btn-md btn-primary'
+  %br
+  %br
+  - @texts.each_slice(3).to_a.each do |chunk|
+    .row
+      - chunk.each do |text|
+        .col-sm-6.col-md-4
+          .thumbnail.text-preview-thumb
+            .caption
+              = link_to truncate(text.title), text_path(text), class: 'text-title-link h3'
+              - unless text.user.nil?
+                %p
+                  Added by: #{text.user.email} 
+              %p
+                Source: #{short_source_link(text)}
+              %p= truncate(text.content, length: 100)
+          
+
+  
+
+  

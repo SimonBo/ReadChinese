@@ -1,0 +1,32 @@
+.row
+  .col-md-10
+    #dict
+      #character
+        %strong Character:
+      #pronunciation
+        %strong Pinyin:
+      #meaning
+        %strong Meaning:
+.row
+  .col-md-10
+    #text-title{"data-id"=> @text.id}
+      - @text.title.each_char.with_index do |c, index|
+        %span.text-title-character{"data-title-index" => index}= c
+    %h4
+      Added by: #{@text.user}
+    %h5
+      From: #{short_source_link(@text)}
+    #text{"data-id"=> @text.id}
+      - @text.content.each_char.with_index do |c, index|
+        %span.character{"data-index" => index}= c
+
+.row
+  .col-md-10
+    #text-options
+      %strong Font
+      = link_to '+', '#', class: 'btn btn-default', id:'font-inc'
+      = link_to '-', '#', class: 'btn btn-default', id:'font-dec'
+      = link_to 'Reset', '#', class: 'btn btn-default', id:'font-reset'
+  = link_to 'Edit', edit_text_path(@text)
+  \|
+  = link_to 'Back', texts_path

@@ -1,0 +1,21 @@
+.col-md-10  
+  .row
+    %h1 Words you have looked up:
+  .row
+    - @checked_words.each_slice(3).to_a.each do |chunk|
+      .row
+        - chunk.each do |checked_word|
+          .col-sm-6.col-md-4
+            .thumbnail.checked-word-thumb
+              .caption
+                %p
+                  Checked #{pluralize checked_word.counter, 'time'}
+                %p
+                  Simplified character: #{checked_word.word.simplified_char}
+                %p
+                  Traditional character: #{checked_word.word.traditional_char}
+                %p{ :class =>  "checked_word_pronunciation", :id => "pronunciation_for_#{checked_word.id}"}
+                  Pronunciation: #{checked_word.word.pronunciation}
+                %p
+                  Meaning: #{checked_word.word.meaning}
+  
