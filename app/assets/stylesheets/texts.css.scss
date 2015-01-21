@@ -4,11 +4,18 @@
 
 #dict {
   font-size: 1.5em;
-  display: block;
-  // height: 35px;
+  position: fixed;
+  // display: block;
+  // height: 5em;
   width: 100%;
   z-index: 9999;
   background-color: beige;
+  margin-right: 100px;
+}
+#text-part{
+  // position: absolute;
+  display: block;
+  margin-top: 50px;
 }
 #text, #text-title {
   font-size: 1.2em;
