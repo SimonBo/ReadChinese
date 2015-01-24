@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :text do
+    title "MyText"
     content "MyText"
     source "MyString"
     user nil

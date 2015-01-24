@@ -10,9 +10,7 @@ Given(/^chinese words in database$/) do
 end
 
 
-Given(/^a user visits the homepage$/) do
-  visit root_path
-end
+
 
 Given(/^a user searches for "(.*?)"$/) do |arg1|
   fill_in 'word_to_lookup', :with => arg1
@@ -25,19 +23,6 @@ Then(/^an "(.*?)" and "(.*?)" is displayed on the site$/) do |arg1, arg2|
   expect(page).to have_content arg2
 end
 
-Given(/^a registered user$/) do
-  @user = FactoryGirl.create(:user)
-end
-
-
-Given(/^a user logs in$/) do
-  visit root_path
-  click_on 'Sign in'
-  page.has_content?("Email")
-  fill_in 'Email', :with => @user.email
-  fill_in 'Password', :with => @user.password
-  click_button 'Sign in'
-end
 
 Given(/^the user finds a word in dictionary that he hasn't favorited before$/) do
 fill_in 'word_to_lookup', :with => '笨蛋'
@@ -84,9 +69,7 @@ Given(/^the user has a few favorited words$/) do
 end
 
 
-Given(/^the user clicks on "(.*?)" link$/) do |arg1|
-  click_on arg1
-end
+
 
 Then(/^the user can see a list of all the words he has favorited$/) do
   expect(current_path).to eq favorite_words_path
@@ -109,9 +92,7 @@ Given(/^the user visits his favorite words section$/) do
   visit favorite_words_path
 end
 
-When(/^the user click on "(.*?)" button$/) do |arg1|
-  click_button arg1
-end
+
 
 Then(/^the word is removed from the list of his favorites$/) do
   expect(@user.favorite_words).not_to include @word.id
