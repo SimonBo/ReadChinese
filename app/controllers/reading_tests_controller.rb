@@ -25,11 +25,12 @@ class ReadingTestsController < ApplicationController
   # POST /reading_tests.json
   def create
     @reading_test = ReadingTest.new(reading_test_params)
-    binding.pry
     test_type = params[:reading_test][:test_type]
     if test_type == 'gap-fill'
       @reading_test.prepare_gap_fill_test
     end
+
+    @reading_test.save
 
     respond_to do |format|
       if @reading_test.save
