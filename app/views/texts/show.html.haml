@@ -35,4 +35,15 @@
   \|
   = link_to 'Back', texts_path
   %h5 Test yourself!
-  = link_to 'Gap-fill'
+  
+  = simple_form_for(ReadingTest.new) do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.hidden_field :user, value: current_user.id
+      = f.hidden_field :text, value: @text.id
+      = f.hidden_field :type, value: 'gap-fill'
+
+    .form-actions
+      = f.button :submit, "Gap-fill"
+
