@@ -2,7 +2,7 @@ class Word < ActiveRecord::Base
 
   def self.find_words(word_index, text)
     text_to_check = Text.find(text)
-    text = text_to_check.title + text_to_check.content
+    text = text_to_check.full_text
     word_index = word_index.to_i
     char_index = word_index.to_i
     char = text[char_index]
