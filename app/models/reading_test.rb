@@ -6,7 +6,6 @@ class ReadingTest < ActiveRecord::Base
     self.select_random_sentence
     self.select_random_character
     self.find_matching_word
-    self.type = 'gap-fill'
     save
   end
 

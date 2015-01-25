@@ -25,6 +25,11 @@ class ReadingTestsController < ApplicationController
   # POST /reading_tests.json
   def create
     @reading_test = ReadingTest.new(reading_test_params)
+    binding.pry
+    test_type = params[:reading_test][:test_type]
+    if test_type == 'gap-fill'
+      @reading_test.prepare_gap_fill_test
+    end
 
     respond_to do |format|
       if @reading_test.save
@@ -69,6 +74,6 @@ class ReadingTestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reading_test_params
-      params.require(:reading_test).permit(:user_id, :text_id, :data, :type)
+      params.require(:reading_test).permit(:user_id, :text_id, :data, :test_type)
     end
 end

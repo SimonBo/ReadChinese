@@ -2,16 +2,16 @@
 
 %p
   %b User:
-  = @reading_test.user
+  = @reading_test.user.email if @reading_test.user
 %p
   %b Text:
-  = @reading_test.text
+  = @reading_test.text.title if @reading_test.text
 %p
   %b Data:
   = @reading_test.data
 %p
   %b Type:
-  = @reading_test.type
+  = @reading_test.test_type
 
 = link_to 'Edit', edit_reading_test_path(@reading_test)
 \|
