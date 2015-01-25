@@ -6,6 +6,7 @@ class ReadingTest < ActiveRecord::Base
     self.select_random_sentence
     self.select_random_character
     self.find_matching_word
+    self.replace_word_in_sentence
   end
 
   def select_random_sentence
@@ -26,6 +27,7 @@ class ReadingTest < ActiveRecord::Base
     random_char_index = rand(sentence_length)
     random_character = sentence[random_char_index]
     self.data['answer'] = random_character
+    self.data['answer-sentence-index'] = random_char_index
     random_character_text_index = self.data['question-index'] + random_char_index
     self.data['answer-index'] = random_character_text_index
     save
@@ -38,6 +40,16 @@ class ReadingTest < ActiveRecord::Base
     puts "Checking word at index #{character_index} in text nr #{text_id}"
     word = Word.find_words(character_index, text_id)
     self.data['answer'] = word.first.simplified_char
+    save
+  end
+
+  def replace_word_in_sentence
+    self.data_will_change!    
+    # word_index = self.data['answer-sentence-index']
+    # word_length = self.data['answer'].length
+    word = self.data['answer']
+    sentence = self.data['question']
+    sentence.sub!(word, '...')
     save
   end
 

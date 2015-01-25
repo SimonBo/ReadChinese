@@ -5,11 +5,13 @@
   %b Text:
   = @reading_test.text.title if @reading_test.text
 %p
-  %b Data:
-  = @reading_test.data
-%p
   %b Type:
   = @reading_test.test_type
+
+%h2 Test:
+%p= @reading_test.data['question']
+
+%h3 Answer: #{@reading_test.data['answer']}
 
 = link_to 'Edit', edit_reading_test_path(@reading_test)
 \|

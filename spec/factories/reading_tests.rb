@@ -5,6 +5,6 @@ FactoryGirl.define do
     user nil
     text nil
     data ""
-    type ""
+    test_type ""
   end
 end

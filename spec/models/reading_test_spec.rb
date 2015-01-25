@@ -29,6 +29,7 @@ RSpec.describe ReadingTest, :type => :model do
 
       it "saves the random senetence index" do
         @short_text_test.select_random_sentence
+        puts @short_text_test.text.full_text
         expect(@short_text_test.data['question-index']).to eq 0
       end
 
@@ -48,15 +49,17 @@ RSpec.describe ReadingTest, :type => :model do
       end
 
       it "finds the word which the random character is the part of" do
-        # @short_text_test.select_random_sentence
-        # @short_text_test.select_random_character
-        # puts @short_text_test.data['answer']      
-        # matching_word = @short_text_test.find_matching_word
-        # puts matching_word.first.simplified_char
         @short_text_test.prepare_gap_fill_test
         matching_word = @short_text_test.data['answer']
         possible_matches = %w(中国 笨蛋)
         expect(possible_matches).to include matching_word
+      end
+
+      it "replaces the found word in the selected sentence with 3 dots" do
+        @short_text_test.prepare_gap_fill_test
+        sentence_to_prepare = @short_text_test.data['question']
+        possible_test_sentences = %w(...笨蛋 中国...)
+        expect(possible_test_sentences).to include sentence_to_prepare
       end
     end
   end
