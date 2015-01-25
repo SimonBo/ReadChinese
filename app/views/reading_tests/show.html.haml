@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @reading_test.user
+%p
+  %b Text:
+  = @reading_test.text
+%p
+  %b Data:
+  = @reading_test.data
+%p
+  %b Type:
+  = @reading_test.type
+
+= link_to 'Edit', edit_reading_test_path(@reading_test)
+\|
+= link_to 'Back', reading_tests_path

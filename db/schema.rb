@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124121440) do
+ActiveRecord::Schema.define(version: 20150125031041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,31 @@ ActiveRecord::Schema.define(version: 20150124121440) do
 
   add_index "favorite_words", ["user_id"], name: "index_favorite_words_on_user_id", using: :btree
   add_index "favorite_words", ["word_id"], name: "index_favorite_words_on_word_id", using: :btree
+
+  create_table "reading_tests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "text_id"
+    t.hstore   "data",       default: {}
+    t.string   "type",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reading_tests", ["data"], name: "reading_tests_gin_data", using: :gin
+  add_index "reading_tests", ["text_id"], name: "index_reading_tests_on_text_id", using: :btree
+  add_index "reading_tests", ["user_id"], name: "index_reading_tests_on_user_id", using: :btree
+
+  create_table "tests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "text_id"
+    t.hstore   "data",       default: {}
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tests", ["data"], name: "tests_gin_data", using: :gin
+  add_index "tests", ["text_id"], name: "index_tests_on_text_id", using: :btree
+  add_index "tests", ["user_id"], name: "index_tests_on_user_id", using: :btree
 
   create_table "texts", force: true do |t|
     t.text     "content"

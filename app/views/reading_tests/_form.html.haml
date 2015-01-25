@@ -1,0 +1,11 @@
+= simple_form_for(@reading_test) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :text
+    = f.input :data
+    = f.input :type
+
+  .form-actions
+    = f.button :submit
