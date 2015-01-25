@@ -17,8 +17,9 @@
           %span.text-title-character{"data-title-index" => index}= c
       %h4
         Added by: #{@text.user}
-      %h5
-        From: #{short_source_link(@text)}
+      - unless @text.source.nil?
+        %h5
+          From: #{short_source_link(@text)}
       #text{"data-id"=> @text.id}
         - @text.content.each_char.with_index do |c, index|
           %span.character{"data-index" => index}= c
@@ -34,4 +35,4 @@
   \|
   = link_to 'Back', texts_path
   %h5 Test yourself!
-    = link_to 'Gap-fill'
+  = link_to 'Gap-fill'

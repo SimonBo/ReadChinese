@@ -14,8 +14,9 @@
               - unless text.user.nil?
                 %p
                   Added by: #{text.user.email} 
-              %p
-                Source: #{short_source_link(text)}
+              - unless text.source.nil?
+                %p
+                  Source: #{short_source_link(text)}
               %p= truncate(text.content, length: 100)
           
 
