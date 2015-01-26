@@ -1,25 +1,25 @@
-.col-md-10
-  %h1 Listing texts
-  - if user_signed_in?
-    = link_to 'Add Text', new_text_path, class: 'btn btn-md btn-primary'
-  %br
-  %br
-  - @texts.each_slice(3).to_a.each do |chunk|
-    .row
-      - chunk.each do |text|
-        .col-sm-6.col-md-4
-          .thumbnail.text-preview-thumb
-            .caption
-              = link_to truncate(text.title), text_path(text), class: 'text-title-link h3'
-              - unless text.user.nil?
-                %p
-                  Added by: #{text.user.email} 
-              - unless text.source.nil?
-                %p
-                  Source: #{short_source_link(text)}
-              %p= truncate(text.content, length: 100)
-          
 
-  
+%h1 Listing texts
+- if user_signed_in?
+  = link_to 'Add Text', new_text_path, class: 'btn btn-md btn-primary'
+%br
+%br
+- @texts.each_slice(3).to_a.each do |chunk|
+  .row
+    - chunk.each do |text|
+      .col-sm-6.col-md-4
+        .thumbnail.text-preview-thumb
+          .caption
+            = link_to truncate(text.title), text_path(text), class: 'text-title-link h3'
+            - unless text.user.nil?
+              %p
+                Added by: #{text.user.email} 
+            - unless text.source.nil?
+              %p
+                Source: #{short_source_link(text)}
+            %p= truncate(text.content, length: 100)
+        
 
-  
+
+
+

@@ -1,41 +1,40 @@
-.col-md-10
-  %h1 Read Chinese
+%h1 Read Chinese
 
-  %h2 Use our dictionary by typing chinese characters, pinyin or meaning:
-  = form_tag words_path, method: :get do
-    %p
-      = text_field_tag :query, params[:query], id: 'word_to_lookup'
-      = submit_tag "Search", name: nil, id: 'lookup_word'
+%h2 Use our dictionary by typing chinese characters, pinyin or meaning:
+= form_tag words_path, method: :get do
+  %p
+    = text_field_tag :query, params[:query], id: 'word_to_lookup'
+    = submit_tag "Search", name: nil, id: 'lookup_word'
 
-  - if @words.nil?
-    %h2 
-      Or work on you #{link_to "reading skill!", texts_path}
-  - elsif  @words.blank?
-    %h3 Nothing found, sorry!
-  - elsif @words
-    %h3 Here's what we found:
-    - @words.each do |word|
-      .row
-        %div{:id => "dict_entry_for_#{word.id}", :class => "dict_entry"}
+- if @words.nil?
+  %h2 
+    Or work on you #{link_to "reading skill!", texts_path}
+- elsif  @words.blank?
+  %h3 Nothing found, sorry!
+- elsif @words
+  %h3 Here's what we found:
+  - @words.each do |word|
+    .row
+      %div{:id => "dict_entry_for_#{word.id}", :class => "dict_entry"}
 
-          %p.word-label
-            %b Traditional character:
-            %p.character= word.traditional_char
+        %p.word-label
+          %b Traditional character:
+          %p.character= word.traditional_char
 
-          %p.word-label
-            %b Simplified character:
-            %p.character= word.simplified_char
+        %p.word-label
+          %b Simplified character:
+          %p.character= word.simplified_char
 
-          %p.word-label
-            %b Pinyin: 
-            %p{:id => "pronunciation_for_#{word.id}", :class => "pronunciation"}= word.pronunciation
-            
-          %p.word-label
-            %b Meaning:
-            %p{:id => "meaning_for_#{word.id}", :class => "meaning"}= word.meaning
-          - if user_signed_in? && !current_user.faved_word?(word)
-            = button_to 'Favorite', favorite_word_path(word.id), id: "favorite_button_for_#{word.id}", class: 'fav-btn'
-          - elsif user_signed_in? && current_user.faved_word?(word)
-            %h4 Faved
+        %p.word-label
+          %b Pinyin: 
+          %p{:id => "pronunciation_for_#{word.id}", :class => "pronunciation"}= word.pronunciation
+          
+        %p.word-label
+          %b Meaning:
+          %p{:id => "meaning_for_#{word.id}", :class => "meaning"}= word.meaning
+        - if user_signed_in? && !current_user.faved_word?(word)
+          = button_to 'Favorite', favorite_word_path(word.id), id: "favorite_button_for_#{word.id}", class: 'fav-btn'
+        - elsif user_signed_in? && current_user.faved_word?(word)
+          %h4 Faved
 
 

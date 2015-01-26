@@ -4,7 +4,7 @@ class ReadingTestsController < ApplicationController
   # GET /reading_tests
   # GET /reading_tests.json
   def index
-    @reading_tests = ReadingTest.all
+    @reading_tests = ReadingTest.where("user_id = ?", current_user.id)
   end
 
   # GET /reading_tests/1
