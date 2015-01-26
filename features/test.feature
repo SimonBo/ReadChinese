@@ -8,3 +8,9 @@ User can take a test that's generated based on the texts he's read, words he's f
     Given the user visits a text show page
     And the user clicks "Gap-fill" link
     Then a gap-fill test is shown based on the text 
+
+  Scenario: Answering gap fill test
+    Given a logged in user that selected to take a gap-fill test
+    When the user types the correct answer
+    And the user click on "Answer" button
+    Then "Correct!" message is displayed

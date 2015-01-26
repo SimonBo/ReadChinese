@@ -1,5 +1,6 @@
 class Text < ActiveRecord::Base
   belongs_to :user
+  has_many :reading_tests
 
   def full_text
     if self.title = ''
