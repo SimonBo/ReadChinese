@@ -56,8 +56,6 @@ class ReadingTest < ActiveRecord::Base
 
   def replace_word_in_sentence
     self.data_will_change!    
-    # word_index = self.data['answer-sentence-index']
-    # word_length = self.data['answer'].length
     word = self.data['answer']
     sentence = self.data['question']
     sentence.sub!(word, '...')

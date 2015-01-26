@@ -1,0 +1,25 @@
+%h1 Listing test_answers
+
+%table
+  %tr
+    %th Reading test
+    %th User
+    %th Answer
+    %th Correct
+    %th
+    %th
+    %th
+
+  - @test_answers.each do |test_answer|
+    %tr
+      %td= test_answer.reading_test
+      %td= test_answer.user
+      %td= test_answer.answer
+      %td= test_answer.correct
+      %td= link_to 'Show', test_answer
+      %td= link_to 'Edit', edit_test_answer_path(test_answer)
+      %td= link_to 'Destroy', test_answer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Test answer', new_test_answer_path

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Reading test:
+  = @test_answer.reading_test
+%p
+  %b User:
+  = @test_answer.user
+%p
+  %b Answer:
+  = @test_answer.answer
+%p
+  %b Correct:
+  = @test_answer.correct
+
+= link_to 'Edit', edit_test_answer_path(@test_answer)
+\|
+= link_to 'Back', test_answers_path

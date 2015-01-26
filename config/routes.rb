@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :test_answers
+
   resources :reading_tests
 
   resources :checked_words

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125080903) do
+ActiveRecord::Schema.define(version: 20150126033719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(version: 20150125080903) do
   add_index "reading_tests", ["data"], name: "reading_tests_gin_data", using: :gin
   add_index "reading_tests", ["text_id"], name: "index_reading_tests_on_text_id", using: :btree
   add_index "reading_tests", ["user_id"], name: "index_reading_tests_on_user_id", using: :btree
+
+  create_table "test_answers", force: true do |t|
+    t.integer  "reading_test_id"
+    t.integer  "user_id"
+    t.string   "answer"
+    t.boolean  "correct"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "test_answers", ["reading_test_id"], name: "index_test_answers_on_reading_test_id", using: :btree
+  add_index "test_answers", ["user_id"], name: "index_test_answers_on_user_id", using: :btree
 
   create_table "tests", force: true do |t|
     t.integer  "user_id"
