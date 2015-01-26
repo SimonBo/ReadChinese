@@ -89,6 +89,7 @@ ready = ->
 
   $( window ).resize ->
     DivResizer.adjust_dict_width()
+    DivResizer.reposition_text_entry()
 
   $("#font-inc").on 'click', (e) ->
     e.preventDefault
