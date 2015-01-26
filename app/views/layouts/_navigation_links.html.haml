@@ -1,6 +1,7 @@
 %li= link_to 'Read Chinese', texts_path
 - if user_signed_in?
-  %li= link_to 'My word history', checked_words_path(current_user), class: 'navbar-brand'
+  %li= link_to 'My tests', reading_tests_path
+  %li= link_to 'My word history', checked_words_path(current_user)
   %li= link_to 'My favorite words', favorite_words_path
   %li= link_to 'Edit account', edit_user_registration_path
   %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
