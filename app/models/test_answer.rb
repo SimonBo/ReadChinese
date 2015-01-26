@@ -16,4 +16,9 @@ class TestAnswer < ActiveRecord::Base
     end
     save
   end
+
+  def original_task_sentence
+    self.reading_test.data['question']   
+  end
 end
+

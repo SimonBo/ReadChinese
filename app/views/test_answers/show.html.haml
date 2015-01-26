@@ -1,17 +1,13 @@
-%p#notice= notice
-
 %p
-  %b Reading test:
-  = @test_answer.reading_test
+  %b Sentence:
+  = @test_answer.original_task_sentence
 %p
-  %b User:
-  = @test_answer.user
-%p
-  %b Answer:
+  %b Your Answer:
   = @test_answer.answer
-%p
-  %b Correct:
-  = @test_answer.correct
+
+- if@test_answer.correct?
+  %h3 Correct!
+
 
 = link_to 'Edit', edit_test_answer_path(@test_answer)
 \|
