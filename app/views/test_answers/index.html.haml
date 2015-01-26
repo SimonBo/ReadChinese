@@ -3,7 +3,6 @@
 %table
   %tr
     %th Reading test
-    %th User
     %th Answer
     %th Correct
     %th
@@ -12,8 +11,7 @@
 
   - @test_answers.each do |test_answer|
     %tr
-      %td= test_answer.reading_test
-      %td= test_answer.user
+      %td= test_answer.reading_test.text.title
       %td= test_answer.answer
       %td= test_answer.correct
       %td= link_to 'Show', test_answer
@@ -22,4 +20,4 @@
 
 %br
 
-= link_to 'New Test answer', new_test_answer_path
+

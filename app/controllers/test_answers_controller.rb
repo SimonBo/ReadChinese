@@ -4,7 +4,7 @@ class TestAnswersController < ApplicationController
   # GET /test_answers
   # GET /test_answers.json
   def index
-    @test_answers = TestAnswer.all
+    @test_answers = TestAnswer.where("user_id = ?", current_user)
   end
 
   # GET /test_answers/1

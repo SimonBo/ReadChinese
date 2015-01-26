@@ -1,28 +1,26 @@
 .row
-  .col-md-10
-    #dict
-      #character
-        %strong Character:
-      #pronunciation
-        %strong Pinyin:
-      #meaning
-        %strong Meaning:
+  .col-md-10#dict
+    #character
+      %strong Character:
+    #pronunciation
+      %strong Pinyin:
+    #meaning
+      %strong Meaning:
 .row
-  .col-md-10
-    #text-part
-      - if user_signed_in?
-        #user_signed_in
-      #text-title{"data-id"=> @text.id}
-        - @text.title.each_char.with_index do |c, index|
-          %span.text-title-character{"data-title-index" => index}= c
-      %h4
-        Added by: #{@text.user}
-      - unless @text.source.nil?
-        %h5
-          From: #{short_source_link(@text)}
-      #text{"data-id"=> @text.id}
-        - @text.content.each_char.with_index do |c, index|
-          %span.character{"data-index" => index}= c
+  .col-md-10#text-part
+    - if user_signed_in?
+      #user_signed_in
+    #text-title{"data-id"=> @text.id}
+      - @text.title.each_char.with_index do |c, index|
+        %span.text-title-character{"data-title-index" => index}= c
+    %h4
+      Added by: #{@text.user}
+    - unless @text.source.nil?
+      %h5
+        From: #{short_source_link(@text)}
+    #text{"data-id"=> @text.id}
+      - @text.content.each_char.with_index do |c, index|
+        %span.character{"data-index" => index}= c
 
 .row
   .col-md-10
@@ -31,19 +29,21 @@
       = link_to '+', '#', class: 'btn btn-default', id:'font-inc'
       = link_to '-', '#', class: 'btn btn-default', id:'font-dec'
       = link_to 'Reset', '#', class: 'btn btn-default', id:'font-reset'
-  = link_to 'Edit', edit_text_path(@text)
-  \|
-  = link_to 'Back', texts_path
-  %h5 Test yourself!
-  
-  = simple_form_for(ReadingTest.new) do |f|
-    = f.error_notification
+.row
+  .col-md-10  
+    = link_to 'Edit', edit_text_path(@text)
+    \|
+    = link_to 'Back', texts_path
+    %h5 Test yourself!
+    
+    = simple_form_for(ReadingTest.new) do |f|
+      = f.error_notification
 
-    .form-inputs
-      = f.hidden_field :user_id, value: current_user.id
-      = f.hidden_field :text_id, value: @text.id
-      = f.hidden_field :test_type, value: 'gap-fill'
+      .form-inputs
+        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :text_id, value: @text.id
+        = f.hidden_field :test_type, value: 'gap-fill'
 
-    .form-actions
-      = f.button :submit, "Gap-fill"
+      .form-actions
+        = f.button :submit, "Gap-fill"
 
