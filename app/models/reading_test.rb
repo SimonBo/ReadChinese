@@ -2,6 +2,19 @@ class ReadingTest < ActiveRecord::Base
   belongs_to :user
   belongs_to :text
 
+  def generate_helper_answers
+    self.data_will_change!
+    helper_answers = []
+    correct_answer = self.data['answer']
+    helper_answers << correct_answer
+    length_of_correct_answer = correct_answer.length
+    until helper_answers.size == 4
+      helper_answers << Word.where("pinyin_count = ?", length_of_correct_answer).sample
+    end
+    self.data['helper_answers'] = helper_answers
+    save
+  end
+
   def prepare_gap_fill_test
     self.select_random_sentence
     self.select_random_character
