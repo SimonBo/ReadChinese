@@ -27,13 +27,21 @@ RSpec.describe Text, :type => :model do
           Word.create(traditional_char: traditional_chars[i], simplified_char: simplified_chars[i], meaning: meanings[i], pronunciation: pronunciation[i], pinyin_count: pronunciation[i].split.count)
         end
         @text = create(:text, content: '中国笨蛋', title: '水')
+        @text.detect_words
+        @water = Word.find_by_simplified_char('水')
+      end
+
+      it "returns index for character from text.content considering the title charactes" do
+        expect(@text.get_char_view_index(0)).to eq 2
+      end
+
+      it "returns the word_id for a given character index" do
+        expect(@text.get_word_for_char(0)).to eq @water.id
       end
 
       it "detects which characters form words in the submitted text" do
-        @text.detect_words
-        water = Word.find_by_simplified_char('水')
         expect(@text.words.count).to eq 5
-        expect(@text.words.values).to include water.id
+        expect(@text.words.values).to include @water.id
       end
     end
 

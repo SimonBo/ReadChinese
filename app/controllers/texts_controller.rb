@@ -25,7 +25,7 @@ class TextsController < ApplicationController
   # POST /texts.json
   def create
     @text = Text.new(text_params)
-
+    @text.detect_words
     respond_to do |format|
       if @text.save
         format.html { redirect_to @text, notice: 'Text was successfully created.' }
@@ -40,6 +40,7 @@ class TextsController < ApplicationController
   # PATCH/PUT /texts/1
   # PATCH/PUT /texts/1.json
   def update
+    @text.detect_words
     respond_to do |format|
       if @text.update(text_params)
         format.html { redirect_to @text, notice: 'Text was successfully updated.' }

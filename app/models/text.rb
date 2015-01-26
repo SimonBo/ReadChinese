@@ -5,6 +5,7 @@ class Text < ActiveRecord::Base
   validates :content, presence: true
   validates :user, presence: true
 
+
   def full_text
     if self.title.empty?
       self.content
@@ -22,5 +23,14 @@ class Text < ActiveRecord::Base
       end
     end
     save
+  end
+
+  def get_word_for_char(index)
+    self.words[index]
+  end
+
+  def get_char_view_index(index)
+    title_length = self.title.length
+    title_length + index + 1
   end
 end
