@@ -33,11 +33,13 @@ RSpec.describe ReadingTest, :type => :model do
         expect(@short_text_test.data['question-index']).to eq 0
       end
 
-      it "picks a random character from the random sentence" do
-        @test.select_random_sentence
-        @test.select_random_character
-        random_character = @test.data['answer']
-        possible_characters = %w(我 是 懒 猪 你 是 铁 公 鸡 猪 和 公 鸡)
+      it "picks a random chinese character from the random sentence" do
+        text = create(:text, content: "。。。我';][", title: "dupa")
+        test = create(:reading_test, text: text)
+        test.select_random_sentence
+        test.select_random_character
+        random_character = test.data['answer']
+        possible_characters = %w(我)
         expect(possible_characters).to include random_character
       end
 

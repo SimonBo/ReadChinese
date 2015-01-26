@@ -32,6 +32,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'pry-nav'
 end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'

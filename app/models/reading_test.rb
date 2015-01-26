@@ -13,7 +13,12 @@ class ReadingTest < ActiveRecord::Base
     self.data_will_change!
     text = self.text.full_text
     sentences = text.split('。')
-    random_sentence = sentences.sample
+    random_sentence = ""
+
+    until random_sentence.present?
+      random_sentence = sentences.sample if sentences.sample.present? and sentences.sample.split('').any?{|w| w.multibyte?}
+    end
+    
     self.data['question'] = random_sentence
     sentence_index = text.index random_sentence
     self.data['question-index'] = sentence_index
@@ -24,8 +29,14 @@ class ReadingTest < ActiveRecord::Base
     self.data_will_change!
     sentence = self.data['question']
     sentence_length = sentence.length
-    random_char_index = rand(sentence_length)
-    random_character = sentence[random_char_index]
+    
+
+    random_character = ""
+    until random_character.present?
+      random_char_index = rand(sentence_length)
+      random_character = sentence[random_char_index] if sentence[random_char_index].multibyte?
+    end
+    
     self.data['answer'] = random_character
     self.data['answer-sentence-index'] = random_char_index
     random_character_text_index = self.data['question-index'] + random_char_index
