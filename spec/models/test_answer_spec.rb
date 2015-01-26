@@ -12,6 +12,18 @@ RSpec.describe TestAnswer, :type => :model do
         expect(answer.errors[:answer]).to include("can't be blank")
       end
 
+      it "is invalid without a user" do
+        answer = TestAnswer.new(user_id: nil)
+        answer.valid?
+        expect(answer.errors[:user_id]).to include("can't be blank")
+      end
+
+      it "is invalid without a test" do
+        answer = TestAnswer.new(reading_test_id: nil)
+        answer.valid?
+        expect(answer.errors[:reading_test_id]).to include("can't be blank")
+      end
+
       it "marks the answer as correct if it matches the data[answer] of the related reading_test" do
         answer = create(:test_answer, user: user, reading_test: test, answer: '指挥')
         answer.check_answer
