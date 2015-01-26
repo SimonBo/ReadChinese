@@ -5,9 +5,10 @@
   %b Your Answer:
   = @test_answer.answer
 
-- if@test_answer.correct?
+- if @test_answer.correct?
   %h3 Correct!
-
+- elsif !@test_answer.correct?
+  %h3 Incorrect:( Try again!
 
 = link_to 'Edit', edit_test_answer_path(@test_answer)
 \|
