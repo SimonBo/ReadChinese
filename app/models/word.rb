@@ -59,7 +59,7 @@ class Word < ActiveRecord::Base
 
   def self.text_search(query)
     if query.present?
-      if query.is_a? String and query.multibyte?
+      if query.is_a? String and query.is_chinese_character?
         Word.find_based_on_char(query)
       elsif query.is_a? String and query.is_pinyin?
         Word.find_based_on_pinyin(query)

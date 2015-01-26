@@ -5,6 +5,6 @@ FactoryGirl.define do
     title "MyText"
     content "MyText"
     source "MyString"
-    user nil
+    association :user
   end
 end

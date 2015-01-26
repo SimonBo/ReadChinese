@@ -20,7 +20,7 @@ RSpec.describe Word, :type => :model do
     context 'search by simplified characters' do
       it "returns true if given characters are chinese characters" do
         @input = '笨蛋'
-        expect(@input.multibyte?).to eq true
+        expect(@input.is_chinese_character?).to eq true
       end
       it "returns a list of words that contain characters from users input" do
         @input = '笨蛋'        

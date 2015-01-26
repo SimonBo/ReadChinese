@@ -29,7 +29,7 @@ class ReadingTest < ActiveRecord::Base
     random_sentence = ""
 
     until random_sentence.present?
-      random_sentence = sentences.sample if sentences.sample.present? and sentences.sample.split('').any?{|w| w.multibyte?}
+      random_sentence = sentences.sample if sentences.sample.present? and sentences.sample.split('').any?{|w| w.is_chinese_character?}
     end
     
     self.data['question'] = random_sentence
@@ -47,7 +47,7 @@ class ReadingTest < ActiveRecord::Base
     random_character = ""
     until random_character.present?
       random_char_index = rand(sentence_length)
-      random_character = sentence[random_char_index] if sentence[random_char_index].multibyte?
+      random_character = sentence[random_char_index] if sentence[random_char_index].is_chinese_character?
     end
     
     self.data['answer'] = random_character
