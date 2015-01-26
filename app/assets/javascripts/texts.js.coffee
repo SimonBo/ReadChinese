@@ -18,6 +18,7 @@ DictionaryChecker =
           render_not_found()
       complete: () ->
         DivResizer.reposition_text_entry()
+  # request: (target_word, target_text) ->
 
   increment_checked_words: (checked_word) ->
     $.ajax
@@ -86,6 +87,8 @@ ready = ->
   text_part = $("#text-part")
   text = $('#text')
   original_font_size = text.css('font-size')
+  DivResizer.adjust_dict_width()
+  DivResizer.reposition_text_entry()
 
   $( window ).resize ->
     DivResizer.adjust_dict_width()
@@ -104,7 +107,7 @@ ready = ->
     FontResizer.reset_font(original_font_size, text)
 
   character.on 'click', (e) ->
-    target_word = text_title_character.length + $(this).data('index')
+    target_word = $(this).data('index')
     target_text = $('#text').data('id')
     DictionaryChecker.request(target_word, target_text)
 

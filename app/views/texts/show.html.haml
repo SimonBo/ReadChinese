@@ -11,16 +11,16 @@
     - if user_signed_in?
       #user_signed_in
     #text-title{"data-id"=> @text.id}
-      - @text.title.each_char.with_index do |c, index|
-        %span.text-title-character{"data-title-index" => index}= c
+      - @text.title.each_char.with_index do |character, index|
+        %span.text-title-character{"data-title-index" => index}= character
     %h4
       Added by: #{@text.user}
     - unless @text.source.nil?
       %h5
         From: #{short_source_link(@text)}
     #text{"data-id"=> @text.id}
-      - @text.content.each_char.with_index do |c, index|
-        %span.character{"data-index" => index}= c
+      - @text.content.each_char.with_index do |character, index|
+        %span.character{"data-index" => @text.get_char_view_index(index)}= character
 
 .row
   #text-options
