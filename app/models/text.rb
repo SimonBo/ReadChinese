@@ -5,6 +5,8 @@ class Text < ActiveRecord::Base
   validates :content, presence: true
   validates :user, presence: true
 
+  after_save :detect_words
+
 
   def full_text
     if self.title.empty?
@@ -15,22 +17,30 @@ class Text < ActiveRecord::Base
   end
 
   def detect_words
+    self.strip_text
+    self.words_will_change!
     text = self.full_text
+    result = {}
     text.each_char.with_index do |char, index|
       if char.is_chinese_character?
         word = Word.find_words(index, self.id)
-        self.words[index] = word.first.id
+        result[index] = word.first.id
       end
     end
-    save
+    self.update_column(:words, result)
   end
 
   def get_word_for_char(index)
-    self.words[index]
+    self.words["#{index}"]
   end
 
   def get_char_view_index(index)
     title_length = self.title.length
     title_length + index + 1
+  end
+
+  def strip_text
+    self.title.strip!
+    self.content.strip!
   end
 end

@@ -32,16 +32,18 @@
   = link_to 'Edit', edit_text_path(@text)
   \|
   = link_to 'Back', texts_path
-  %h5 Test yourself!
-  
-  = simple_form_for(ReadingTest.new) do |f|
-    = f.error_notification
 
-    .form-inputs
-      = f.hidden_field :user_id, value: current_user.id
-      = f.hidden_field :text_id, value: @text.id
-      = f.hidden_field :test_type, value: 'gap-fill'
+  - if user_signed_in?
+    %h5 Test yourself!
+    
+    = simple_form_for(ReadingTest.new) do |f|
+      = f.error_notification
 
-    .form-actions
-      = f.button :submit, "Gap-fill"
+      .form-inputs
+        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :text_id, value: @text.id
+        = f.hidden_field :test_type, value: 'gap-fill'
+
+      .form-actions
+        = f.button :submit, "Gap-fill"
 
