@@ -1,12 +1,12 @@
 String.class_eval do
   def is_chinese_character?
-    non_chinese = ['。' ,'，' ,'／' ,'、' ,'《' ,'》' ,'？' ,'‘' ,'“' ,'；' ,'：' ,'［' ,'］' ,'｝' ,'｛' ,'｜' ,'－' ,'——' ,'＝' ,'＋' ,'）' ,'（' ,'＊' ,'&' ,'……' ,'％' ,'¥' ,'＃' ,'@' ,'！' ,'～' , '｀']
+    non_chinese = %w(。 ， ／ 、 《 》 ？ ‘ “ ； ： ［ ］ ｝ ｛ ｜ － —— ＝ ＋ ） （ ＊ & …… ％ ¥ ＃ @ ！ ～ ｀ ” , . / < > ? ; ' " : ] [ { } ` ~ ! @ # $ % ^ & * ( ) _ - + =)
     return false  if non_chinese.include? self
     chars.count < bytes.count
   end
 
   # def not_chinese_char?
-  #   non_chinese = %w(。 ， ／ 、 《 》 ？ ‘ “ ； ： ［ ］ ｝ ｛ ｜ － —— ＝ ＋ ） （ ＊ & …… ％ ¥ ＃ @ ！ ～ ｀)
+  #   
   #   true if non_chinese.include? self
   #   chars.count > bytes.count
   # end
