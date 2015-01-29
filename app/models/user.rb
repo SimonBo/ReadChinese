@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
   def faved_word?(word)
     self.favorite_words.include? word.id
   end
+
+  def name_from_email
+    self.email[/.+?(?=@)/]
+  end
 end

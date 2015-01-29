@@ -14,7 +14,7 @@
       - @text.title.each_char.with_index do |character, index|
         %span.text-title-character{"data-title-index" => index}= character
     %h4
-      Added by: #{@text.user}
+      Added by: #{@text.user.name_from_email}
     - unless @text.source.nil?
       %h5
         From: #{short_source_link(@text)}

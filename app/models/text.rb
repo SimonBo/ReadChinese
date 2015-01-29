@@ -24,9 +24,9 @@ class Text < ActiveRecord::Base
     text.each_char.with_index do |char, index|
       if char.is_chinese_character?
         word = Word.find_words(index, self.id)
-        # puts "Checking char: #{char}"
-        # puts "Result #{word}"
-        result[index] = word.first.id
+        unless word.first.nil?
+          result[index] = word.first.id
+        end
       end
     end
     self.update_column(:words, result)
