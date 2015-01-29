@@ -33,7 +33,7 @@ class Word < ActiveRecord::Base
       end
 
       final_match = matches.group_by(&:size).max.last[0]
-    # puts final_match
+    # puts "Final match from WORD: #{final_match}"
     Word.where('simplified_char = ?', final_match)
   end
 

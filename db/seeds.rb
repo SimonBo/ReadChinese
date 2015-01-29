@@ -35,5 +35,6 @@ contents = ["中新网1月20日电 据台湾“中广新闻网”报道，新竹
   sources = ["http://news.qq.com/a/20150120/049414.htm?tu_biz=1.114.1.1", "http://news.qq.com/a/20150120/029914.htm?tu_biz=1.114.2.1", "http://view.news.qq.com/original/intouchtoday/n3043.html"]
 
   3.times do |i|
-    Text.create(title: titles[i], content: contents[i], source: sources[i], user_id: user.id)
+    text = Text.create(title: titles[i], content: contents[i], source: sources[i], user_id: user.id)
+    puts "Created text with title: #{text.title}"
   end
