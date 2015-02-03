@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.2.0'
 
+gem 'delayed_job_active_record'
+
 gem 'unicorn'
 
 gem 'haml'
