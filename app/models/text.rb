@@ -5,7 +5,7 @@ class Text < ActiveRecord::Base
   validates :content, presence: true
   validates :user, presence: true
 
-  after_save :detect_words
+  after_commit :detect_words, on: [:create, :update]
 
 
   def full_text
@@ -45,4 +45,6 @@ class Text < ActiveRecord::Base
     self.title.strip!
     self.content.strip!
   end
+
+  handle_asynchronously :detect_words
 end
