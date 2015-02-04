@@ -16,4 +16,8 @@ String.class_eval do
     words = self.split
     words.all? { |e|  match_against.include? e }
   end
+
+  def is_i?
+   /\A[-+]?\d+\z/ === self
+ end
 end
