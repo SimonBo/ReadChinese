@@ -74,13 +74,16 @@ class Word < ActiveRecord::Base
   end
 
   def self.find_based_on_pinyin(query)
-    search_this = Word.find_based_on_pinyin_count(query).to_a
-    split_query = query.split
-    result = []
-    search_this.each do |word|
-      result << word if split_query.all? { |e| word.pronunciation.include? e}
-    end
-    return result
+    query_with_any_tones = query.split.map{|x| x + '_'}.join(' ')
+    Word.where('pronunciation ilike ?', "#{query_with_any_tones}")
+
+    # search_this = Word.find_based_on_pinyin_count(query).to_a
+    # split_query = query.split
+    # result = []
+    # search_this.each do |word|
+    #   result << word if split_query.all? { |e| word.pronunciation.include? e}
+    # end
+    # return result
   end
 
   def self.find_based_on_pinyin_count(pinyin)

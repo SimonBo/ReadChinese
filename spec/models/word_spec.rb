@@ -46,6 +46,7 @@ RSpec.describe Word, :type => :model do
       end
 
       it "returns a list of words that have the same pin yin as the pin yin from users input" do
+        binding.pry
         expect(Word.find_based_on_pinyin(@input).count).to eq 1
         expect(Word.find_based_on_pinyin(@input)).to include @idiot
       end
