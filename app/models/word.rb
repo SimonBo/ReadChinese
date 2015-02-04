@@ -78,18 +78,16 @@ class Word < ActiveRecord::Base
     Word.where('pronunciation ilike ?', "#{query_with_any_tones}")
   end
 
-  def self.find_based_on_pinyin_count(pinyin)
-    pinyin_count = pinyin.split.count
-    Word.where('pinyin_count = ?', pinyin_count)
-  end
+  # def self.find_based_on_pinyin_count(pinyin)
+  #   pinyin_count = pinyin.split.count
+  #   Word.where('pinyin_count = ?', pinyin_count)
+  # end
 
   def self.find_based_on_meaning(meaning)
-    result = []
-    Word.all.each do |word|
-      word_meanings = word.meaning.gsub(/,/, ' ').gsub(/[^0-9a-z ]/i, '')
-      .split
-      result << word if word_meanings.include? meaning
+    direct_match = Word.where('meaning ilike ?', "#{meaning}")
+    if direct_match.empty?
+      direct_match = Word.where('meaning ~ ?', "#{meaning}[^a-z]").order(:pinyin_count)
     end
-    return result
+    return direct_match
   end
 end
