@@ -33,7 +33,7 @@ page.has_content?("idiot")
 end
 
 Given(/^the user favorites it$/) do
-  click_on 'Fav'
+  click_on 'Favorite'
 end
 
 Then(/^that word is added to the user's favorite words$/) do
@@ -59,33 +59,25 @@ Then(/^the user is redirected to the same search results page$/) do
   expect(current_path).to eq @search_result_path
 end
 
-Given(/^the user has a few favorited words$/) do
-  @word = Word.first
-  @word2 = Word.second
-  @user.favorite_words << @word.id
-  @user.favorite_words << @word2.id
-  expect(@user.favorite_words).to include @word.id and @word2.id
-  @user.save
-end
-
-
 
 
 Then(/^the user can see a list of all the words he has favorited$/) do
   expect(current_path).to eq favorite_words_path
-  
-  word = Word.find(@user.favorite_words.first)
-  binding.pry
-  expect(page).to have_content word.meaning
-  
+  expect(page).to have_css(".dict_entry")  
 end
 
 Given(/^a registered user visits his favorite words page$/) do
   steps %{
     Given a registered user
     Given a user logs in
-    And the user has a few favorited words
     And the user visits his favorite words section
+  }
+end
+
+Given(/^the user favorites a word from the dictionary$/) do
+  steps %{
+    And the user finds a word in dictionary that he hasn't favorited before
+    And the user favorites it
   }
 end
 
@@ -96,7 +88,7 @@ end
 
 
 Then(/^the word is removed from the list of his favorites$/) do
-  expect(@user.favorite_words).not_to include @word.id
+  expect(page).not_to have_content '笨蛋'
 end
 
 When(/^the user clicks on the unfavorite button$/) do

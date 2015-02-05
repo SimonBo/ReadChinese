@@ -27,18 +27,20 @@ User can input chinese words and get english meaning + pronunciation
     And the user finds a word in dictionary that he has favorited before
     Then the user sees that it has been favorited by him
   
-  # @javascript
+
   Scenario: See list of favorite words
     Given a registered user
     Given a user logs in
-    And the user has a few favorited words
-    # And the user finds a word in dictionary that he hasn't favorited before
-    # And the user favorites it
+    And the user favorites a word from the dictionary
     And the user visits his favorite words section
     Then the user can see a list of all the words he has favorited
 
+
   Scenario: Unfavorite a word
-    Given a registered user visits his favorite words page
+    Given a registered user
+    And a user logs in
+    And the user favorites a word from the dictionary
+    And the user visits his favorite words section
     When the user clicks on the unfavorite button
     Then the word is removed from the list of his favorites
 
