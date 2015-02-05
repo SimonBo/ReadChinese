@@ -23,12 +23,7 @@ class WordsController < ApplicationController
   end
 
   def favorite_words
-    @favorite_words = []
-    current_user.favorite_words.each do |id|
-      word = Word.find(id)
-      @favorite_words << word
-    end
-    return @favorite_words
+    @favorite_words = current_user.favorite_words.map{|id| Word.find(id)}
   end
 
   def favorite_word

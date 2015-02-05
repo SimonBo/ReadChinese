@@ -73,8 +73,9 @@ end
 
 Then(/^the user can see a list of all the words he has favorited$/) do
   expect(current_path).to eq favorite_words_path
-  # binding.pry
+  
   word = Word.find(@user.favorite_words.first)
+  binding.pry
   expect(page).to have_content word.meaning
   
 end
