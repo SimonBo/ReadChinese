@@ -3,7 +3,7 @@ Given(/^the user visits a text show page$/) do
 end
 
 Then(/^a gap\-fill test is shown based on the text$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content 'Test'
 end
 
 Given(/^a logged in user that selected to take a gap\-fill test$/) do
@@ -19,5 +19,5 @@ When(/^the user types the correct answer$/) do
 end
 
 Then(/^"(.*?)" message is displayed$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+  page.has_content? arg1
 end

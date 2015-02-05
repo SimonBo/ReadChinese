@@ -61,7 +61,6 @@ class ReadingTest < ActiveRecord::Base
     self.data_will_change!
     character_index = self.data['answer-index']
     text_id = self.text.id
-    puts "Checking word at index #{character_index} in text nr #{text_id}"
     word = Word.find_words(character_index, text_id)
     self.data['answer'] = word.first.simplified_char
     save
