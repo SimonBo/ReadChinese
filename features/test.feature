@@ -13,5 +13,11 @@ User can take a test that's generated based on the texts he's read, words he's f
   Scenario: Answering gap fill test
     Given a logged in user that selected to take a gap-fill test
     When the user types the correct answer
-    And the user click on "Answer" button
+    And the user clicks on "Answer" button
     Then "Correct!" message is displayed
+
+  Scenario: Switch to multiple choice answer in gap fill test
+    Given a logged in user that selected to take a gap-fill test
+    And user clicks on "Multiple choice"
+    Then 4 choices are displayed
+    And "Type answer" button is displayed

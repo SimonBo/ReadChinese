@@ -21,3 +21,11 @@ end
 Then(/^"(.*?)" message is displayed$/) do |arg1|
   page.has_content? arg1
 end
+
+Then(/^(\d+) choices are displayed$/) do |arg1|
+  expect(page).to have_css(".multiple_choice_answer", count: 4)
+end
+
+Then(/^"(.*?)" button is displayed$/) do |arg1|
+  page.has_content? arg1
+end

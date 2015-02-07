@@ -2,7 +2,7 @@ Given(/^the user clicks "(.*?)" link$/) do |arg1|
   click_on arg1
 end
 
-When(/^the user click on "(.*?)" button$/) do |arg1|
+When(/^the user clicks on "(.*?)" button$/) do |arg1|
   click_button arg1
 end
 
@@ -33,4 +33,8 @@ Given(/^a user logs in$/) do
   fill_in 'Email', :with => @user.email
   fill_in 'Password', :with => @user.password
   click_button 'Sign in'
+end
+
+Given(/^user clicks on "(.*?)"$/) do |arg1|
+  click_on arg1
 end
