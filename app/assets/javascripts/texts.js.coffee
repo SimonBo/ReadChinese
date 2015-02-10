@@ -10,6 +10,7 @@ DictionaryChecker =
         $('#notice').text()
         if data.length >0
           if $('#user_signed_in').length > 0
+            console.log data
             checked_word = data[0].id
             DictionaryChecker.increment_checked_words(checked_word)
           DictionaryChecker.reset_info_fields()
@@ -17,8 +18,8 @@ DictionaryChecker =
         else
           render_not_found()
       complete: () ->
-        DivResizer.reposition_text_entry()
-  # request: (target_word, target_text) ->
+        ContentProcessor.reposition_text_entry()
+        ContentProcessor.higlight_word(target_word)
 
   increment_checked_words: (checked_word) ->
     $.ajax
@@ -57,7 +58,7 @@ DictionaryChecker =
     $('#pronunciation').text('')
     $('#meaning').text('')
 
-FontResizer =
+ContentProcessor=
   enlarge_font: (text) ->
     font_size = text.css('font-size').replace('px', '')
     inc_font_size = parseInt(font_size) + 1 + 'px'
@@ -71,7 +72,6 @@ FontResizer =
   reset_font: (original_font_size, text) ->
     text.css('font-size', original_font_size )
 
-DivResizer=
   reposition_text_entry: ->
     current_dictionary_height = $("#dict").css('height')
     $("#text-part").css('margin-top', current_dictionary_height)
@@ -80,6 +80,17 @@ DivResizer=
     text_part_width = $("#text-part").css('width')
     $("#dict").css("width", text_part_width)
 
+  higlight_word: (word_id)->
+    ContentProcessor.dehighlight_all_words()
+    word = $(".character[data-index=#{word_id}]")
+    console.log word
+    word.addClass('highlight')
+
+  dehighlight_all_words: ->
+    word = $(".highlight")
+    word.removeClass('highlight')
+
+
 ready = ->
   character = $(".character")
   text_title_character = $(".text-title-character")
@@ -87,28 +98,29 @@ ready = ->
   text_part = $("#text-part")
   text = $('#text')
   original_font_size = text.css('font-size')
-  DivResizer.adjust_dict_width()
-  DivResizer.reposition_text_entry()
+  ContentProcessor.adjust_dict_width()
+  ContentProcessor.reposition_text_entry()
 
   $( window ).resize ->
-    DivResizer.adjust_dict_width()
-    DivResizer.reposition_text_entry()
+    ContentProcessor.adjust_dict_width()
+    ContentProcessor.reposition_text_entry()
 
   $("#font-inc").on 'click', (e) ->
     e.preventDefault
-    FontResizer.enlarge_font(text)
+    ContentProcessor.enlarge_font(text)
 
   $("#font-dec").on 'click', (e) ->
     e.preventDefault
-    FontResizer.decrease_font(text)
+    ContentProcessor.decrease_font(text)
 
   $("#font-reset").on 'click', (e) ->
     e.preventDefault
-    FontResizer.reset_font(original_font_size, text)
+    ContentProcessor.reset_font(original_font_size, text)
 
   character.on 'click', (e) ->
     target_word = $(this).data('index')
     target_text = $('#text').data('id')
+    
     DictionaryChecker.request(target_word, target_text)
 
   text_title_character.on 'click', (e) ->
