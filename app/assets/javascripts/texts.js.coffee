@@ -10,16 +10,17 @@ DictionaryChecker =
         $('#notice').text()
         if data.length >0
           if $('#user_signed_in').length > 0
-            console.log data
             checked_word = data[0].id
             DictionaryChecker.increment_checked_words(checked_word)
           DictionaryChecker.reset_info_fields()
           DictionaryChecker.render_dictionary_entry(data)
+          word_simple_char = data[0].simplified_char
+          ContentProcessor.higlight_word(target_word, word_simple_char)
         else
           render_not_found()
       complete: () ->
         ContentProcessor.reposition_text_entry()
-        ContentProcessor.higlight_word(target_word)
+        
 
   increment_checked_words: (checked_word) ->
     $.ajax
@@ -80,11 +81,18 @@ ContentProcessor=
     text_part_width = $("#text-part").css('width')
     $("#dict").css("width", text_part_width)
 
-  higlight_word: (word_id)->
+  higlight_word: (word_id, chars)->
     ContentProcessor.dehighlight_all_words()
+
     word = $(".character[data-index=#{word_id}]")
-    console.log word
-    word.addClass('highlight')
+    target_character = word.text()
+    target_char_index_in_word = chars.indexOf(target_character)
+    
+
+    index_to_highlight = [(word_id-target_char_index_in_word)...(word_id-target_char_index_in_word+chars.length)]
+    for index in index_to_highlight
+      char = $(".character[data-index=#{index}]")
+      char.addClass('highlight')
 
   dehighlight_all_words: ->
     word = $(".highlight")
