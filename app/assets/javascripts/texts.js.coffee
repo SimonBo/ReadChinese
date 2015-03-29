@@ -30,7 +30,7 @@ DictionaryChecker =
       url: "/checked_words/mark_as_checked/#{checked_word}"
       dataType: "json"
 
-  reset_info_fields: (target) ->
+  # reset_info_fields: (target) ->
     # $('#character').html("<strong>Character: </strong>")
     # $('#pronunciation').html("<strong>Pinyin: </strong>")
     # $('#meaning').html("<strong>Meaning: </strong>")
@@ -48,7 +48,7 @@ DictionaryChecker =
   show_pinyin: (data, target) ->
     pinyin = PinyinConverter.convert(data[0].pronunciation).toString().replace(/[\][]/g, '')
     # $('#pronunciation').append(pinyin)
-    target.data('content', pinyin + ' ')
+    target.data('content', pinyin + '\n')
 
 
   show_meanings: (data, target) ->
@@ -144,7 +144,8 @@ ready = ->
   text_title_character.on 'click', (e) ->
     target_word = $(this).data('title-index')
     target_text = $('#text').data('id')
-    DictionaryChecker.request(target_word, target_text)
+    target = $(@)
+    DictionaryChecker.request(target_word, target_text, target)
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

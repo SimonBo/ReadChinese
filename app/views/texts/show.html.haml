@@ -22,7 +22,7 @@
       - @text.content.each_char.with_index do |character, index|
         %span.character{"data-index" => @text.get_char_view_index(index), 'data-toggle' =>"popover", 'data-trigger' =>"focus", 'title' =>"Change title", 'data-content' =>"", "tabindex" => "0", 'role' => "button", 'data-placement' => "top"}= character
 
-.row#text-options
+.row
   %strong Font
   = link_to '+', '#', class: 'btn btn-default', id:'font-inc'
   = link_to '-', '#', class: 'btn btn-default', id:'font-dec'
@@ -34,7 +34,7 @@
 
   - if user_signed_in?
     %h5 Test yourself!
-    
+
     = simple_form_for(ReadingTest.new) do |f|
       = f.error_notification
 
