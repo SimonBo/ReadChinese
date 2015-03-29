@@ -34,15 +34,6 @@ RSpec.describe Text, :type => :model do
       it "returns index for character from text.content considering the title charactes" do
         expect(@text.get_char_view_index(0)).to eq 2
       end
-
-      it "returns the word_id for a given character index" do
-        expect(@text.get_word_for_char(0)).to eq @water.id
-      end
-
-      it "detects which characters form words in the submitted text" do
-        expect(@text.words.count).to eq 5
-        expect(@text.words.values).to include @water.id
-      end
     end
 
   end

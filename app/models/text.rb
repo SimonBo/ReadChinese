@@ -32,10 +32,6 @@ class Text < ActiveRecord::Base
     self.update_column(:words, result)
   end
 
-  def get_word_for_char(index)
-    self.words["#{index}"]
-  end
-
   def get_char_view_index(index)
     title_length = self.title.length
     title_length + index + 1

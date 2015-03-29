@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :checked_word do
-    user nil
-    word nil
+    user
+    word
   end
 end
