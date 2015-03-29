@@ -1,26 +1,28 @@
-DictionaryChecker = 
-  request: (target_word, target_text) ->
+DictionaryChecker =
+  request: (target_word, target_text, target) ->
     $.ajax
       type: 'GET'
       url: "/words/find/#{target_word}/#{target_text}"
       dataType: "json"
       error: (jqXHR, textStatus, errorThrown) ->
-        $('#notice').text("AJAX Error: #{textStatus}") 
+        $('#notice').text("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
         $('#notice').text()
         if data.length >0
           if $('#user_signed_in').length > 0
             checked_word = data[0].id
             DictionaryChecker.increment_checked_words(checked_word)
-          DictionaryChecker.reset_info_fields()
-          DictionaryChecker.render_dictionary_entry(data)
+          # DictionaryChecker.reset_info_fields(target)
+          DictionaryChecker.render_dictionary_entry(data, target)
+          target.popover('show')
           word_simple_char = data[0].simplified_char
           ContentProcessor.higlight_word(target_word, word_simple_char)
         else
-          render_not_found()
+          DictionaryChecker.render_not_found(target)
+          target.popover('show')
       complete: () ->
         ContentProcessor.reposition_text_entry()
-        
+
 
   increment_checked_words: (checked_word) ->
     $.ajax
@@ -28,36 +30,43 @@ DictionaryChecker =
       url: "/checked_words/mark_as_checked/#{checked_word}"
       dataType: "json"
 
-  reset_info_fields: (data) ->
-    $('#character').html("<strong>Character: </strong>")
-    $('#pronunciation').html("<strong>Pinyin: </strong>")
-    $('#meaning').html("<strong>Meaning: </strong>")
+  reset_info_fields: (target) ->
+    # $('#character').html("<strong>Character: </strong>")
+    # $('#pronunciation').html("<strong>Pinyin: </strong>")
+    # $('#meaning').html("<strong>Meaning: </strong>")
 
-  render_dictionary_entry: (data) ->
-    DictionaryChecker.show_found_word(data)
-    DictionaryChecker.show_pinyin(data)
-    DictionaryChecker.show_meanings(data)
 
-  show_found_word: (data) ->
+  render_dictionary_entry: (data, target) ->
+    DictionaryChecker.show_found_word(data, target)
+    DictionaryChecker.show_pinyin(data, target)
+    DictionaryChecker.show_meanings(data, target)
+
+  show_found_word: (data, target) ->
     word = data[0].simplified_char
-    $('#character').append(word)
+    target.prop('title', word)
 
-  show_pinyin: (data) ->
+  show_pinyin: (data, target) ->
     pinyin = PinyinConverter.convert(data[0].pronunciation).toString().replace(/[\][]/g, '')
-    $('#pronunciation').append(pinyin)
+    # $('#pronunciation').append(pinyin)
+    target.data('content', pinyin + ' ')
 
-  show_meanings: (data) ->
+
+  show_meanings: (data, target) ->
     meanings = (word.meaning for word in data)
     for chunk in meanings
       if /\w\d/i.test(chunk.toString())
         chunk = PinyinConverter.convert(chunk)
-      $('#meaning').append chunk
-      $('#meaning').append '<br>'
+      # $('#meaning').append chunk
+      # $('#meaning').append '<br>'
+      current_content = target.data('content')
+      target.data('content', current_content + chunk)
 
-  render_not_found: ->
-    $('#character').text('Not found')
-    $('#pronunciation').text('')
-    $('#meaning').text('')
+  render_not_found: (target) ->
+    target.prop('title', 'Not found')
+    target.data('content', 'Not found')
+    # $('#character').text('Not found')
+    # $('#pronunciation').text('')
+    # $('#meaning').text('')
 
 ContentProcessor=
   enlarge_font: (text) ->
@@ -87,7 +96,6 @@ ContentProcessor=
     word = $(".character[data-index=#{word_id}]")
     target_character = word.text()
     target_char_index_in_word = chars.indexOf(target_character)
-    
 
     index_to_highlight = [(word_id-target_char_index_in_word)...(word_id-target_char_index_in_word+chars.length)]
     for index in index_to_highlight
@@ -109,9 +117,10 @@ ready = ->
   ContentProcessor.adjust_dict_width()
   ContentProcessor.reposition_text_entry()
 
-  $( window ).resize ->
-    ContentProcessor.adjust_dict_width()
-    ContentProcessor.reposition_text_entry()
+
+  # $( window ).resize ->
+  #   ContentProcessor.adjust_dict_width()
+  #   ContentProcessor.reposition_text_entry()
 
   $("#font-inc").on 'click', (e) ->
     e.preventDefault
@@ -128,13 +137,14 @@ ready = ->
   character.on 'click', (e) ->
     target_word = $(this).data('index')
     target_text = $('#text').data('id')
-    
-    DictionaryChecker.request(target_word, target_text)
+    target = $(@)
+
+    DictionaryChecker.request(target_word, target_text, target)
 
   text_title_character.on 'click', (e) ->
     target_word = $(this).data('title-index')
     target_text = $('#text').data('id')
     DictionaryChecker.request(target_word, target_text)
-    
+
 $(document).ready(ready)
 $(document).on('page:load', ready)

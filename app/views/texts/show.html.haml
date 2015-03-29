@@ -1,18 +1,18 @@
-.row
-  #dict
-    #character
-      %strong Character:
-    #pronunciation
-      %strong Pinyin:
-    #meaning
-      %strong Meaning:
+/ .row
+/   #dict
+/     #character
+/       %strong Character:
+/     #pronunciation
+/       %strong Pinyin:
+/     #meaning
+/       %strong Meaning:
 .row
   #text-part
     - if user_signed_in?
       #user_signed_in
     #text-title{"data-id"=> @text.id}
       - @text.title.each_char.with_index do |character, index|
-        %span.text-title-character{"data-title-index" => index}= character
+        %span.text-title-character{"data-title-index" => index, 'data-toggle' =>"popover", 'data-trigger' =>"focus", 'title' =>"Change title", 'data-content' =>"", "tabindex" => "0", 'role' => "button", 'data-placement' => "top"}= character
     %h4
       Added by: #{@text.user.name_from_email}
     - unless @text.source.nil?
@@ -20,14 +20,13 @@
         From: #{short_source_link(@text)}
     #text{"data-id"=> @text.id}
       - @text.content.each_char.with_index do |character, index|
-        %span.character{"data-index" => @text.get_char_view_index(index)}= character
+        %span.character{"data-index" => @text.get_char_view_index(index), 'data-toggle' =>"popover", 'data-trigger' =>"focus", 'title' =>"Change title", 'data-content' =>"", "tabindex" => "0", 'role' => "button", 'data-placement' => "top"}= character
 
-.row
-  #text-options
-    %strong Font
-    = link_to '+', '#', class: 'btn btn-default', id:'font-inc'
-    = link_to '-', '#', class: 'btn btn-default', id:'font-dec'
-    = link_to 'Reset', '#', class: 'btn btn-default', id:'font-reset'
+.row#text-options
+  %strong Font
+  = link_to '+', '#', class: 'btn btn-default', id:'font-inc'
+  = link_to '-', '#', class: 'btn btn-default', id:'font-dec'
+  = link_to 'Reset', '#', class: 'btn btn-default', id:'font-reset'
 .row
   = link_to 'Edit', edit_text_path(@text)
   \|
