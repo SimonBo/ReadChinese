@@ -43,4 +43,8 @@ class Text < ActiveRecord::Base
   end
 
   handle_asynchronously :detect_words
+
+  def select_random_sentence
+    self.content.split('.').sample.strip
+  end
 end
